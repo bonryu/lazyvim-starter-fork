@@ -11,13 +11,31 @@ local options = {
 
   ignorecase = true, -- ignore case in search patterns
   smartcase = true, -- smart case
-  smartindent = true,
+  -- smartindent = true,
+  autoindent = true,
   breakindent = true,
   breakindentopt = { "shift:2" },
   wrap = true,
   linebreak = true,
+  swapfile = false,
 }
 
 for k, v in pairs(options) do
   vim.opt[k] = v
+end
+
+local function isempty(s)
+  return s == nil or s == ""
+end
+
+-- custom python provider
+local conda_prefix = os.getenv("CONDA_PREFIX")
+if not isempty(conda_prefix) then
+  vim.g.python_host_prog = conda_prefix .. "/bin/python"
+  vim.g.python3_host_prog = conda_prefix .. "/bin/python"
+  vim.env.VIRTUAL_ENV = conda_prefix
+  vim.env.VENV_DIR = conda_prefix
+else
+  vim.g.python_host_prog = "python"
+  vim.g.python3_host_prog = "python3"
 end

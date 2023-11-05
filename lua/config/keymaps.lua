@@ -61,6 +61,21 @@ map("n", "<A-L>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Inc
 map("n", "<A-J>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
 map("n", "<A-H>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
 
+-- remap <leader>[y|Y] to copy to system clipboard
+map({ "n", "v" }, "<leader>y", [["+y]], { desc = '"+y Copy to system clipboard' })
+map({ "n", "v" }, "<leader>p", [["+p]], { desc = '"+p Paste from system clipboard' })
+map({ "n", "v" }, "<leader>Y", [["+Y]], { desc = '"+Y Copy to system clipboard' })
+map({ "n", "v" }, "<leader>P", [["+P]], { desc = '"+P Paste from system clipboard' })
+
+-- greatest remap ever
+-- delete into the null/void register, then paste before. Use like this:
+-- 1. yiw foo
+-- 2. viw bar
+-- 3. p to replace bar with foo.
+-- 4. optionally "p" to keep pasting foo after the newly pasted "foo"
+-- vim.keymap.set({ "x" }, "p", [["_dP]])
+map("x", "p", [["_dP]], { desc = '[["_dP]] delete into _ register and paste before' })
+
 -- open the last telescope picker that happened to be open previously
 vim.keymap.set(
   "n",
@@ -68,3 +83,9 @@ vim.keymap.set(
   require("telescope.builtin").resume,
   { noremap = true, silent = true, desc = "Resume Telescope" }
 )
+
+-- buffers
+if Util.has("bufferline.nvim") then
+  map("n", "<C-S-PageDown>", "<cmd>BufferLineMoveNext<cr>", { desc = "Move buffer right" })
+  map("n", "<C-S-PageUp>", "<cmd>BufferLineMovePrev<cr>", { desc = "Move buffer left" })
+end
