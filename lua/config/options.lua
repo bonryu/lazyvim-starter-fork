@@ -23,7 +23,7 @@ local options = {
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
-
+ 
 local function isempty(s)
   return s == nil or s == ""
 end
