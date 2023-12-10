@@ -34,4 +34,16 @@ return {
       vim.api.nvim_create_user_command("SwenvPick", swenvapi.pick_venv, {})
     end,
   },
+  -- lualine integration
+  -- square 
+  -- house \u{1f3e0}
+  -- pine tree \u{1f332}
+  {
+    "nvim-lualine/lualine.nvim",
+    optional = true,
+    event = "VeryLazy",
+    opts = function(_, opts)
+      table.insert(opts.sections.lualine_x, { 'swenv', icon = '\u{1f332}', color = { fg = "#7fb55e" } })
+    end,
+  },
 }

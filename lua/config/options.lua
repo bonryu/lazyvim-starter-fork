@@ -10,7 +10,7 @@ local options = {
   -- guicursor = "",
 
   ignorecase = true, -- ignore case in search patterns
-  smartcase = true, -- smart case
+  smartcase = true,  -- smart case
   -- smartindent = true,
   autoindent = true,
   breakindent = true,
@@ -18,12 +18,13 @@ local options = {
   wrap = true,
   linebreak = true,
   swapfile = false,
+  autochdir = true,
 }
 
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
- 
+
 local function isempty(s)
   return s == nil or s == ""
 end
