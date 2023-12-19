@@ -18,37 +18,47 @@ local function map(mode, lhs, rhs, opts)
   end
 end
 
+vim.keymap.set({ "n", "v", "i" }, "<A-h>", "<Nop>")
 vim.keymap.set({ "n", "v", "i" }, "<A-j>", "<Nop>")
--- vim.keymap.del({ "n", "i", "v" }, "<A-j>")
 vim.keymap.set({ "n", "v", "i" }, "<A-k>", "<Nop>")
--- vim.keymap.del({ "n", "i", "v" }, "<A-k>")
-vim.keymap.set("n", "<C-h>", "<Nop>")
-vim.keymap.set("n", "<C-j>", "<Nop>")
-vim.keymap.set("n", "<C-k>", "<Nop>")
-vim.keymap.set("n", "<C-l>", "<Nop>")
+vim.keymap.set({ "n", "v", "i" }, "<A-l>", "<Nop>")
+-- vim.keymap.set("n", "<C-h>", "<Nop>")
+-- vim.keymap.set("n", "<C-j>", "<Nop>")
+-- vim.keymap.set("n", "<C-k>", "<Nop>")
+-- vim.keymap.set("n", "<C-l>", "<Nop>")
 -- Move Lines
-map("n", "<C-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
-map("n", "<C-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
-map("i", "<C-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
-map("i", "<C-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
-map("v", "<C-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-map("v", "<C-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+map("n", "<C-S-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+map("n", "<C-S-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+map("i", "<C-S-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+map("i", "<C-S-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+map("v", "<C-S-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+map("v", "<C-S-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
--- Move to window using the <alt> hjkl keys
-map("n", "<A-h>", [[<cmd>lua require("tmux").move_left()<cr>]], { desc = "Go to left window", remap = true })
+-- Move to window using the <Ctrl> hjkl keys
 map(
   { "n", "v", "i" },
-  "<A-j>",
+  "<C-h>",
+  [[<cmd>lua require("tmux").move_left()<cr>]],
+  { desc = "Go to left window", remap = true }
+)
+map(
+  { "n", "v", "i" },
+  "<C-j>",
   [[<cmd>lua require("tmux").move_bottom()<cr>]],
   { desc = "Go to lower window", remap = true }
 )
 map(
   { "n", "v", "i" },
-  "<A-k>",
+  "<C-k>",
   [[<cmd>lua require("tmux").move_top()<cr>]],
   { desc = "Go to upper window", remap = true }
 )
-map("n", "<A-l>", [[<cmd>lua require("tmux").move_right()<cr>]], { desc = "Go to right window", remap = true })
+map(
+  { "n", "v", "i" },
+  "<C-l>",
+  [[<cmd>lua require("tmux").move_right()<cr>]],
+  { desc = "Go to right window", remap = true }
+)
 
 -- Resize window using <Alt-Shift> hjkl keys
 -- map("n", "<A-K>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
@@ -56,10 +66,10 @@ map("n", "<A-l>", [[<cmd>lua require("tmux").move_right()<cr>]], { desc = "Go to
 -- map("n", "<A-J>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 -- map("n", "<A-H>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 
-map("n", "<A-K>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
-map("n", "<A-L>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" }) -- Resize window using <ctrl> arrow keys
-map("n", "<A-J>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
-map("n", "<A-H>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
+map("n", "<A-k>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
+map("n", "<A-l>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
+map("n", "<A-j>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
+map("n", "<A-h>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
 
 -- remap <leader>[y|Y] to copy to system clipboard
 map({ "n", "v" }, "<leader>y", [["+y]], { desc = '"+y Copy to system clipboard' })

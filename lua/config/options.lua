@@ -2,15 +2,16 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
--- % is escape character, = is separation point ofr alignment,
+-- % is escape character, = is separation point for alignment,
 -- m is modifiable flag for the buffer,
 -- f is path of the file opened in the buffer.
-vim.opt.winbar = "%=%m %f"
+-- vim.opt.winbar = "%=%m %f"
+vim.opt.autochdir = true
 local options = {
   -- guicursor = "",
 
   ignorecase = true, -- ignore case in search patterns
-  smartcase = true,  -- smart case
+  smartcase = true, -- smart case
   -- smartindent = true,
   autoindent = true,
   breakindent = true,
