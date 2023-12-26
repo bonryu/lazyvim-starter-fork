@@ -11,9 +11,9 @@ return {
       -- Path passed to `get_venvs`.
       venvs_path = vim.fn.expand("~/miniconda3/envs"),
       -- Something to do after setting an environment, for example call vim.cmd.LspRestart
-      post_set_venv = function(venv)
-        vim.cmd("source " .. vim.fn.stdpath("config") .. "/config/options.lua")
-        vim.cmd("source " .. vim.fn.stdpath("config") .. "/plugins/python.lua")
+      post_set_venv = function()
+        -- vim.cmd("source " .. vim.fn.stdpath("config") .. "/config/options.lua")
+        -- vim.cmd("source " .. vim.fn.stdpath("config") .. "/plugins/python.lua")
         vim.cmd("LspRestart")
       end,
       -- post_set_venv = vim.cmd.LspRestart,
@@ -43,7 +43,7 @@ return {
     optional = true,
     event = "VeryLazy",
     opts = function(_, opts)
-      table.insert(opts.sections.lualine_x, { 'swenv', icon = '\u{1f332}', color = { fg = "#7fb55e" } })
+      table.insert(opts.sections.lualine_x, { "swenv", icon = "\u{1f332}", color = { fg = "#7fb55e" } })
     end,
   },
 }

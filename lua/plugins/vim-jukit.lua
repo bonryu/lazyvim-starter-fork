@@ -1,3 +1,6 @@
+if true then
+  return {}
+end
 return {
   {
     "luk400/vim-jukit",

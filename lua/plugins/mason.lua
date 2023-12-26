@@ -1,12 +1,15 @@
+if false then
+  return {}
+end
 return {
   {
     "williamboman/mason.nvim",
     -- opts = function(_, opts)
     --   PATH = "append",
     -- end,
-    opts = {
-      PATH = "append",
-      log_level = vim.log.levels.DEBUG,
-    },
+    opts = function(_, opts)
+      table.insert(opts, { PATH = "prepend" })
+      table.insert(opts, { log_level = vim.log.levels.DEBUG })
+    end,
   },
 }

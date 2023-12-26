@@ -5,7 +5,7 @@
 -- % is escape character, = is separation point for alignment,
 -- m is modifiable flag for the buffer,
 -- f is path of the file opened in the buffer.
--- vim.opt.winbar = "%=%m %f"
+vim.opt.winbar = "%=%m %f"
 vim.opt.autochdir = true
 local options = {
   -- guicursor = "",
@@ -41,3 +41,8 @@ else
   vim.g.python_host_prog = "python"
   vim.g.python3_host_prog = "python3"
 end
+
+-- Example for configuring Neovim to load user-installed installed Lua rocks:
+-- This is for getting 'https://github.com/3rd/image.nvim' to work
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua;"
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua;"
