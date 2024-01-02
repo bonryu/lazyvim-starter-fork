@@ -87,12 +87,18 @@ map({ "n", "v" }, "<leader>P", [["+P]], { desc = '"+P Paste from system clipboar
 map("x", "p", [["_dP]], { desc = '[["_dP]] delete into _ register and paste before' })
 
 -- open the last telescope picker that happened to be open previously
-vim.keymap.set(
+map(
   "n",
   "<leader>sx",
   require("telescope.builtin").resume,
   { noremap = true, silent = true, desc = "Resume Telescope" }
 )
+-- vim.keymap.set(
+--   "n",
+--   "<leader>sx",
+--   require("telescope.builtin").resume,
+--   { noremap = true, silent = true, desc = "Resume Telescope" }
+-- )
 
 -- buffers
 if Util.has("bufferline.nvim") then

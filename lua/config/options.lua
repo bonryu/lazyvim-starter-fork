@@ -5,7 +5,7 @@
 -- % is escape character, = is separation point for alignment,
 -- m is modifiable flag for the buffer,
 -- f is path of the file opened in the buffer.
-vim.opt.winbar = "%=%m %f"
+-- vim.opt.winbar = "%=%m %f"
 vim.opt.autochdir = true
 local options = {
   -- guicursor = "",
@@ -31,16 +31,21 @@ local function isempty(s)
 end
 
 -- custom python provider
-local conda_prefix = os.getenv("CONDA_PREFIX")
-if not isempty(conda_prefix) then
-  vim.g.python_host_prog = conda_prefix .. "/bin/python"
-  vim.g.python3_host_prog = conda_prefix .. "/bin/python"
-  vim.env.VIRTUAL_ENV = conda_prefix
-  vim.env.VENV_DIR = conda_prefix
-else
-  vim.g.python_host_prog = "python"
-  vim.g.python3_host_prog = "python3"
-end
+local virtual_env = "~/.pyenv/versions/nvim31013"
+local python = virtual_env .. "/bin/python3"
+vim.g.python3_host_prog = vim.fn.expand(python)
+vim.g.python_host_prog = vim.fn.expand(python)
+
+-- local conda_prefix = os.getenv("CONDA_PREFIX")
+-- if not isempty(conda_prefix) then
+--   vim.g.python_host_prog = conda_prefix .. "/bin/python"
+--   vim.g.python3_host_prog = conda_prefix .. "/bin/python"
+--   vim.env.VIRTUAL_ENV = conda_prefix
+--   vim.env.VENV_DIR = conda_prefix
+-- else
+--   vim.g.python_host_prog = "python"
+--   vim.g.python3_host_prog = "python3"
+-- end
 
 -- Example for configuring Neovim to load user-installed installed Lua rocks:
 -- This is for getting 'https://github.com/3rd/image.nvim' to work
