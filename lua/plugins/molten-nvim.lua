@@ -29,11 +29,14 @@ return {
       { "<leader>mr", "<cmd>MoltenReevaluateCell<CR>", silent = true, desc = "re-evaluate cell" },
       {
         "<leader>mv",
-        "<cmd>MoltenEvaluateVisual<CR>gv",
+        ":<C-u>MoltenEvaluateVisual<CR>gv",
         mode = "v",
         silent = true,
         desc = "evaluate visual selection",
       },
+      { "<localleader>md", ":MoltenDelete<CR>", silent = true, desc = "molten delete cell" },
+      { "<localleader>mh", ":MoltenHideOutput<CR>", silent = true, desc = "hide output" },
+      { "<localleader>ms", ":noautocmd MoltenEnterOutput<CR>", silent = true, desc = "show/enter output" },
     },
   },
 }

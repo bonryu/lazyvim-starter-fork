@@ -14,6 +14,7 @@ return {
       post_set_venv = function()
         -- vim.cmd("source " .. vim.fn.stdpath("config") .. "/config/options.lua")
         -- vim.cmd("source " .. vim.fn.stdpath("config") .. "/plugins/python.lua")
+        br.set_env()
         vim.cmd("LspRestart")
       end,
       -- post_set_venv = vim.cmd.LspRestart,

@@ -2,11 +2,8 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
--- % is escape character, = is separation point for alignment,
--- m is modifiable flag for the buffer,
--- f is path of the file opened in the buffer.
--- vim.opt.winbar = "%=%m %f"
-vim.opt.autochdir = true
+-- Custom global 'br' is defined in config/globals.lua
+br.nshift = 2
 local options = {
   -- guicursor = "",
 
@@ -15,19 +12,19 @@ local options = {
   -- smartindent = true,
   autoindent = true,
   breakindent = true,
-  breakindentopt = { "shift:2" },
+  breakindentopt = { "shift:" .. br.nshift },
   wrap = true,
   linebreak = true,
   swapfile = false,
-  autochdir = true,
+  autochdir = false,
+  -- % is escape character, = is separation point for alignment,
+  -- m is modifiable flag for the buffer,
+  -- f is path of the file opened in the buffer.
+  winbar = "%=%m %f",
 }
 
 for k, v in pairs(options) do
   vim.opt[k] = v
-end
-
-local function isempty(s)
-  return s == nil or s == ""
 end
 
 -- custom python provider
@@ -37,7 +34,7 @@ vim.g.python3_host_prog = vim.fn.expand(python)
 vim.g.python_host_prog = vim.fn.expand(python)
 
 -- local conda_prefix = os.getenv("CONDA_PREFIX")
--- if not isempty(conda_prefix) then
+-- if not br.isempty(conda_prefix) then
 --   vim.g.python_host_prog = conda_prefix .. "/bin/python"
 --   vim.g.python3_host_prog = conda_prefix .. "/bin/python"
 --   vim.env.VIRTUAL_ENV = conda_prefix

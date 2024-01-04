@@ -9,9 +9,9 @@ return {
       -- vim.list_extend(opts.defaults, {
       --   ["<leader>m"] = { name = "+molten" },
       -- })
-      table.insert(opts.defaults, {
-        ["<leader>m"] = { name = "+molten" },
-      })
+      table.insert(opts.defaults, { ["<leader>m"] = { name = "+molten" } })
+      table.insert(opts.defaults, { ["<leader>r"] = { name = "+quarto" } })
+      table.insert(opts.defaults, { ["<leader>i"] = { name = "+slime" } })
     end,
     -- opts = {
     --   plugins = { spelling = true },

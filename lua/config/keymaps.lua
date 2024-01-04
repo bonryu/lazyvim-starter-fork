@@ -18,6 +18,16 @@ local function map(mode, lhs, rhs, opts)
   end
 end
 
+-- better indenting
+vim.keymap.set("v", "<", "<Nop>")
+vim.keymap.set("v", ">", "<Nop>")
+map("v", "<", "<gv" .. br.nshift .. "h")
+map("v", ">", ">gv" .. br.nshift .. "l")
+vim.keymap.set("n", "<<", "<Nop>")
+vim.keymap.set("n", ">>", "<Nop>")
+map("n", "<<", "<<" .. br.nshift .. "h", { remap = false })
+map("n", ">>", ">>" .. br.nshift .. "l", { remap = false })
+
 vim.keymap.set({ "n", "v", "i" }, "<A-h>", "<Nop>")
 vim.keymap.set({ "n", "v", "i" }, "<A-j>", "<Nop>")
 vim.keymap.set({ "n", "v", "i" }, "<A-k>", "<Nop>")
