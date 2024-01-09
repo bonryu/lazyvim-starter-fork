@@ -21,11 +21,14 @@ local options = {
   -- m is modifiable flag for the buffer,
   -- f is path of the file opened in the buffer.
   winbar = "%=%m %f",
+  conceallevel = 0,
 }
 
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
+
+-- vim.api.nvim_set_hl(0, "WinBar", { })
 
 -- custom python provider
 local virtual_env = "~/.pyenv/versions/nvim31013"

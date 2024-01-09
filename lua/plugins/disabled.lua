@@ -5,4 +5,5 @@ return {
   { "SmiteshP/nvim-navic", enabled = true },
   { "akinsho/bufferline.nvim", enabled = true },
   { "nvim-lualine/lualine.nvim", enabled = true },
+  { "quarto-dev/quarto-nvim", enabled = true },
 }

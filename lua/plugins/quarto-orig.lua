@@ -1,3 +1,6 @@
+if true then
+  return {}
+end
 -- This is a config that can be merged with your
 -- existing LazyVim config.
 --
@@ -18,53 +21,27 @@ return {
     opts = {
       lspFeatures = {
         languages = { "r", "python", "julia", "bash", "html", "lua" },
-        chunks = "curly",
-        diagnostics = {
-          enabled = true,
-          triggers = { "BufWritePost" },
-        },
-      },
-      codeRunner = {
-        enabled = false,
-        default_method = nil, -- "molten" or "slime"
-        ft_runners = {}, -- filetype to runner, ie. `{ python = "molten" }`.
-        -- Takes precedence over `default_method`
-        never_run = { "yaml" }, -- filetypes which are never sent to a code runner
-      },
-      keymap = {
-        hover = "K",
-        definition = "gd",
-        type_definition = "gD",
-        rename = "<leader>rR",
-        format = "<leader>rf",
-        references = "gr",
-        document_symbols = "gS",
       },
     },
     ft = "quarto",
     keys = {
-      { "<leader>ra", ":QuartoActivate<cr>", desc = "quarto activate" },
-      { "<leader>rp", ":lua require'quarto'.quartoPreview()<cr>", desc = "quarto preview" },
-      { "<leader>rq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "quarto close" },
-      { "<leader>rh", ":QuartoHelp ", desc = "quarto help" },
-      { "<leader>re", ":lua require'otter'.export()<cr>", desc = "otter export" },
-      { "<leader>rE", ":lua require'otter'.export(true)<cr>", desc = "otter export overwrite" },
-      { "<leader>rsa", ":QuartoSendAbove<cr>", desc = "quarto send above" },
-      { "<leader>rsr", ":QuartoSendAll<cr>", desc = "quarto run all" },
-
+      { "<leader>qa", ":QuartoActivate<cr>", desc = "quarto activate" },
+      { "<leader>qp", ":lua require'quarto'.quartoPreview()<cr>", desc = "quarto preview" },
+      { "<leader>qq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "quarto close" },
+      { "<leader>qh", ":QuartoHelp ", desc = "quarto help" },
+      { "<leader>qe", ":lua require'otter'.export()<cr>", desc = "quarto export" },
+      { "<leader>qE", ":lua require'otter'.export(true)<cr>", desc = "quarto export overwrite" },
+      { "<leader>qrr", ":QuartoSendAbove<cr>", desc = "quarto run to cursor" },
+      { "<leader>qra", ":QuartoSendAll<cr>", desc = "quarto run all" },
       { "<leader><cr>", ":SlimeSend<cr>", desc = "send code chunk" },
-      { "<c-cr>", ":SlimeSend<cr>", desc = "send code chunk: <c-cr>" },
-      { "<c-cr>", "<esc>:SlimeSend<cr>i", mode = "i", desc = "send code chunk: <c-cr>" },
-      { "<c-cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk: <c-cr> or <cr>" },
-      { "<cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk: <c-cr> or <cr>" },
-
-      { "<leader>i<cr>", ":SlimeSend<cr>", desc = "send code chunk <c-cr>" },
-      { "<leader>i<cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk: <c-cr> or <cr>" },
-
-      { "<leader>ir", ":split term://R<cr>", desc = "terminal: R" },
-      { "<leader>ii", ":split term://ipython<cr>", desc = "terminal: ipython" },
-      { "<leader>ip", ":split term://python<cr>", desc = "terminal: python" },
-      { "<leader>ij", ":split term://julia<cr>", desc = "terminal: julia" },
+      { "<c-cr>", ":SlimeSend<cr>", desc = "send code chunk" },
+      { "<c-cr>", "<esc>:SlimeSend<cr>i", mode = "i", desc = "send code chunk" },
+      { "<c-cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk" },
+      { "<cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk" },
+      { "<leader>ctr", ":split term://R<cr>", desc = "terminal: R" },
+      { "<leader>cti", ":split term://ipython<cr>", desc = "terminal: ipython" },
+      { "<leader>ctp", ":split term://python<cr>", desc = "terminal: python" },
+      { "<leader>ctj", ":split term://julia<cr>", desc = "terminal: julia" },
     },
   },
 
@@ -123,8 +100,8 @@ return {
       vim.g.slime_python_ipython = 1
 
       require("which-key").register({
-        ["<leader>im"] = { mark_terminal, "mark terminal" },
-        ["<leader>is"] = { set_terminal, "set terminal" },
+        ["<leader>cm"] = { mark_terminal, "mark terminal" },
+        ["<leader>cs"] = { set_terminal, "set terminal" },
       })
     end,
   },
@@ -187,12 +164,6 @@ return {
         "julia",
         "r",
       },
-      highlight = {
-        enabled = true,
-        additional_vim_regex_highlighting = false,
-      },
     },
   },
-  -- below is probably not needed.
-  { "nvim-treesitter/nvim-treesitter-textobjects" },
 }

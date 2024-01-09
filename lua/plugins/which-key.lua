@@ -1,3 +1,19 @@
+local wk = require("which-key")
+
+wk.register({
+  o = {
+    name = "otter & code",
+    a = { require("otter").dev_setup, "otter activate" },
+    ["o"] = { "o# %%<cr>", "new code chunk below" },
+    ["O"] = { "O# %%<cr>", "new code chunk above" },
+    ["b"] = { "o```{bash}<cr>```<esc>O", "bash code chunk" },
+    ["r"] = { "o```{r}<cr>```<esc>O", "r code chunk" },
+    ["p"] = { "o```{python}<cr>```<esc>O", "python code chunk" },
+    ["j"] = { "o```{julia}<cr>```<esc>O", "julia code chunk" },
+    ["l"] = { "o```{julia}<cr>```<esc>O", "julia code chunk" },
+  },
+}, { mode = "n", prefix = "<leader>" })
+
 return {
 
   -- which-key helps you remember key bindings by showing a popup
