@@ -8,6 +8,7 @@ return {
       open_mapping = [[<c-\>]],
       insert_mappings = true,
       terminal_mappings = true,
+      clear_env = false,
     },
     config = function(_, opts)
       local toggleterm = require("toggleterm")

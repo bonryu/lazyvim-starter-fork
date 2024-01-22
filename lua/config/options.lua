@@ -31,7 +31,7 @@ end
 -- vim.api.nvim_set_hl(0, "WinBar", { })
 
 -- custom python provider
-local virtual_env = "~/.pyenv/versions/nvim31013"
+local virtual_env = vim.fn.expand("$HOME") .. "/.pyenv/versions/nvim31013"
 local python = virtual_env .. "/bin/python3"
 vim.g.python3_host_prog = vim.fn.expand(python)
 vim.g.python_host_prog = vim.fn.expand(python)

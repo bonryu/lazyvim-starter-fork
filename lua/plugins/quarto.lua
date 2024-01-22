@@ -52,19 +52,30 @@ return {
       { "<leader>rsa", ":QuartoSendAbove<cr>", desc = "quarto send above" },
       { "<leader>rsr", ":QuartoSendAll<cr>", desc = "quarto run all" },
 
-      { "<leader><cr>", ":SlimeSend<cr>", desc = "send code chunk" },
-      { "<c-cr>", ":SlimeSend<cr>", desc = "send code chunk: <c-cr>" },
-      { "<c-cr>", "<esc>:SlimeSend<cr>i", mode = "i", desc = "send code chunk: <c-cr>" },
-      { "<c-cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk: <c-cr> or <cr>" },
-      { "<cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk: <c-cr> or <cr>" },
+      -- normal mode
+      { "<leader>i<cr>", ":SlimeSend<cr>", desc = "slime send <c-cr>" },
+      { "<c-cr>", ":SlimeSend<cr>", desc = "slime send: <c-cr>" },
+      { "<leader><cr>", "<Plug>SlimeSendCell<cr>", desc = "slime send cell" },
 
-      { "<leader>i<cr>", ":SlimeSend<cr>", desc = "send code chunk <c-cr>" },
-      { "<leader>i<cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk: <c-cr> or <cr>" },
+      -- insert mode
+      { "<c-cr>", "<esc>:SlimeSend<cr>i", mode = "i", desc = "slime send: <c-cr>" },
 
-      { "<leader>ir", ":split term://R<cr>", desc = "terminal: R" },
-      { "<leader>ii", ":split term://ipython<cr>", desc = "terminal: ipython" },
-      { "<leader>ip", ":split term://python<cr>", desc = "terminal: python" },
-      { "<leader>ij", ":split term://julia<cr>", desc = "terminal: julia" },
+      -- visual mode
+      { "<leader>i<cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "slime region send: <c-cr> or <cr>" },
+      { "<c-cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send region send: <c-cr> or <cr>" },
+      { "<cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send region send: <c-cr> or <cr>" },
+
+      { "<leader>ic", ":SlimeConfig<cr>", desc = "slime config" },
+      { "<leader>ir", ":split term://R<cr>", desc = "split terminal: R" },
+      { "<leader>ii", ":split term://ipython<cr>", desc = "split terminal: ipython" },
+      { "<leader>ip", ":split term://python<cr>", desc = "split terminal: python" },
+      { "<leader>ij", ":split term://julia<cr>", desc = "split terminal: julia" },
+      { "<leader>in", ":vsplit term://$SHELL<cr>", desc = "vsplit terminal: shell" },
+      { "<leader>iN", ":vsplit term://$SHELL<cr>", desc = "split terminal: shell" },
+      { "<leader>iR", ":vsplit term://R<cr>", desc = "vsplit terminal: R" },
+      { "<leader>iP", ":vsplit term://python<cr>", desc = "vsplit terminal: python" },
+      { "<leader>iI", ":vsplit term://ipython<cr>", desc = "vsplit termianl: ipython" },
+      { "<leader>iJ", ":vsplit term://julia<cr>", desc = "vsplit termina: julia" },
     },
   },
 
@@ -118,13 +129,43 @@ return {
         vim.b.slime_config = { jobid = vim.g.slime_last_channel }
       end
 
+      vim.b.slime_cell_delimiter = "# %%"
+
       -- slime, neovvim terminal
       vim.g.slime_target = "neovim"
       vim.g.slime_python_ipython = 1
 
+      -- -- slime, tmux
+      -- vim.g.slime_target = 'tmux'
+      -- vim.g.slime_bracketed_paste = 1
+      -- vim.g.slime_default_config = { socket_name = "default", target_pane = ".2" }
+
+      local function toggle_slime_tmux_nvim()
+        if vim.g.slime_target == "tmux" then
+          pcall(function()
+            vim.b.slime_config = nil
+            vim.g.slime_default_config = nil
+          end)
+          -- slime, neovvim terminal
+          vim.g.slime_target = "neovim"
+          vim.g.slime_bracketed_paste = 0
+          vim.g.slime_python_ipython = 1
+        elseif vim.g.slime_target == "neovim" then
+          pcall(function()
+            vim.b.slime_config = nil
+            vim.g.slime_default_config = nil
+          end)
+          -- -- slime, tmux
+          vim.g.slime_target = "tmux"
+          vim.g.slime_bracketed_paste = 1
+          vim.g.slime_default_config = { socket_name = "default", target_pane = ".2" }
+        end
+      end
+
       require("which-key").register({
         ["<leader>im"] = { mark_terminal, "mark terminal" },
         ["<leader>is"] = { set_terminal, "set terminal" },
+        ["<leader>it"] = { toggle_slime_tmux_nvim, "toggle tmux/nvim terminal" },
       })
     end,
   },

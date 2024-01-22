@@ -39,6 +39,7 @@ return {
         lualine_z = { { "filename" } },
       }
       -- opts.extensions = { "neo-tree" }
+      opts.sections.lualine_c = {}
     end,
   },
 }

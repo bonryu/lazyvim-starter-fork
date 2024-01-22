@@ -16,8 +16,8 @@ function br.set_env()
     -- vim.g.python3_host_prog = conda_prefix .. "/bin/python"
     vim.env.VIRTUAL_ENV = conda_prefix
     vim.env.VENV_DIR = conda_prefix
-  else
-    vim.g.python_host_prog = "python"
-    vim.g.python3_host_prog = "python3"
+    -- else
+    --   vim.g.python_host_prog = "python"
+    --   vim.g.python3_host_prog = "python3"
   end
 end
