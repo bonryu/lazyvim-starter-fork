@@ -13,3 +13,16 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.cmd("set comments+=b:-")
   end,
 })
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = augroup("python_filetype"),
+  desc = "Auto select virtualenv Nvim open",
+  pattern = "*",
+  callback = function()
+    local venv = vim.fn.findfile("pyproject.toml", vim.fn.getcwd() .. ";")
+    if venv ~= "" then
+      require("venv-selector").retrieve_from_cache()
+    end
+  end,
+  once = true,
+})

@@ -7,11 +7,30 @@
 -- Thus, instead of having to change your configuration entirely,
 -- this takes your existings config and adds on top where necessary.
 
+local wk = require("which-key")
+
+wk.register({
+  o = {
+    name = "otter & code",
+    a = { require("otter").dev_setup, "otter activate" },
+    ["o"] = { "o# %%<cr>", "new code chunk below" },
+    ["O"] = { "O# %%<cr>", "new code chunk above" },
+    ["b"] = { "o```{bash}<cr>```<esc>O", "bash code chunk" },
+    ["r"] = { "o```{r}<cr>```<esc>O", "r code chunk" },
+    ["p"] = { "o```{python}<cr>```<esc>O", "python code chunk" },
+    ["j"] = { "o```{julia}<cr>```<esc>O", "julia code chunk" },
+  },
+}, { mode = "n", prefix = "<leader>" })
+
 return {
 
   -- this taps into vim.ui.select and vim.ui.input
   -- and in doing so currently breaks renaming in otter.nvim
-  { "stevearc/dressing.nvim", enabled = false },
+
+  {
+    "stevearc/dressing.nvim",
+    enabled = false,
+  },
 
   {
     "quarto-dev/quarto-nvim",
@@ -77,25 +96,6 @@ return {
       { "<leader>iI", ":vsplit term://ipython<cr>", desc = "vsplit termianl: ipython" },
       { "<leader>iJ", ":vsplit term://julia<cr>", desc = "vsplit termina: julia" },
     },
-  },
-
-  {
-    "jmbuhr/otter.nvim",
-    opts = {
-      buffers = {
-        set_filetype = true,
-      },
-    },
-  },
-
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = { "jmbuhr/otter.nvim" },
-    opts = function(_, opts)
-      ---@param opts cmp.ConfigSchema
-      local cmp = require("cmp")
-      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "otter" } }))
-    end,
   },
 
   -- send code from python/r/qmd documets to a terminal or REPL
