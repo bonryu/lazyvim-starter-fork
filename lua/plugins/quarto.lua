@@ -22,6 +22,10 @@ wk.register({
   },
 }, { mode = "n", prefix = "<leader>" })
 
+-- if true then
+--   return {}
+-- end
+
 return {
 
   -- this taps into vim.ui.select and vim.ui.input
@@ -192,48 +196,89 @@ return {
   },
 
   {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "bash",
-        "c",
-        "html",
-        "javascript",
-        "json",
-        "lua",
-        "luadoc",
-        "luap",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "query",
-        "regex",
-        "tsx",
-        "typescript",
-        "vim",
-        "vimdoc",
-        "yaml",
-        "bash",
-        "html",
-        "css",
-        "javascript",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "vim",
-        "yaml",
-        "python",
-        "julia",
-        "r",
-      },
-      highlight = {
-        enabled = true,
-        additional_vim_regex_highlighting = false,
-      },
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      { "jmbuhr/otter.nvim" },
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "hrsh7th/cmp-nvim-lsp-signature-help" },
+      { "hrsh7th/cmp-buffer" },
+      { "hrsh7th/cmp-path" },
+      { "hrsh7th/cmp-calc" },
+      { "hrsh7th/cmp-emoji" },
+      { "saadparwaiz1/cmp_luasnip" },
+      { "f3fora/cmp-spell" },
+      { "ray-x/cmp-treesitter" },
+      { "kdheepak/cmp-latex-symbols" },
+      { "jmbuhr/cmp-pandoc-references" },
+      { "L3MON4D3/LuaSnip" },
+      { "rafamadriz/friendly-snippets" },
+      { "onsails/lspkind-nvim" },
     },
+
+    -- @param opts cmp.ConfigSchema
+    opts = function(_, opts)
+      local cmp = require("cmp")
+      local lspkind = require("lspkind")
+      -- lspkind.init()
+      opts.sources = cmp.config.sources({
+        { name = "otter" },
+        { name = "path" },
+        { name = "nvim_lsp" },
+        { name = "nvim_lsp_signature_help" },
+        { name = "luasnip" },
+        { name = "buffer" },
+        { name = "spell" },
+        { name = "pandoc_references" },
+        { name = "calc" },
+        -- }, {
+        { name = "treesitter", keyword_length = 5, max_item_count = 3 },
+        { name = "latex_symbols" },
+        { name = "emoji" },
+      })
+      -- formatfunc = function(_, item)
+      --   local icons = require("lazyvim.config").icons.kinds
+      --   if icons[item.kind] then
+      --     item.kind = icons[item.kind] .. item.kind
+      --   end
+      --   return item
+      -- end
+      opts.formatting = {
+        format = lspkind.cmp_format({
+          with_text = true,
+          menu = {
+            otter = "[🦦]",
+            nvim_lsp = "[LSP]",
+            luasnip = "[snip]",
+            buffer = "[buf]",
+            path = "[path]",
+            spell = "[spell]",
+            pandoc_references = "[ref]",
+            tags = "[tag]",
+            treesitter = "[TS]",
+            calc = "[calc]",
+            latex_symbols = "[tex]",
+            emoji = "[emoji]",
+          },
+        }),
+      }
+      -- opts.view = {
+      --   entries = "native",
+      -- }
+    end,
+    ---@param opts cmp.ConfigSchema
+    config = function(_, opts)
+      local luasnip = require("luasnip")
+      for _, source in ipairs(opts.sources) do
+        source.group_index = source.group_index or 1
+      end
+      require("cmp").setup(opts)
+      -- for friendly snippets
+      require("luasnip.loaders.from_vscode").lazy_load()
+      -- for custom snippets
+      require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snips" } })
+      -- link quarto and rmarkdown to markdown snippets
+      luasnip.filetype_extend("quarto", { "markdown" })
+      luasnip.filetype_extend("rmarkdown", { "markdown" })
+    end,
   },
-  -- below is probably not needed.
-  { "nvim-treesitter/nvim-treesitter-textobjects" },
 }

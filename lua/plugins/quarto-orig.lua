@@ -1,6 +1,3 @@
-if true then
-  return {}
-end
 -- This is a config that can be merged with your
 -- existing LazyVim config.
 --

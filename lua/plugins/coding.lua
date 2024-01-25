@@ -1,5 +1,6 @@
 return {
   {
+    -- By Bon. prevent replaceing ``` with ````
     "echasnovski/mini.pairs",
     event = "VeryLazy",
     config = function()
