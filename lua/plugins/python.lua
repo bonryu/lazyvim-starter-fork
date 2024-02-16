@@ -20,7 +20,14 @@ return {
     "nvimtools/none-ls.nvim",
     opts = function(_, opts)
       local nls = require("null-ls")
-      table.insert(opts.sources, nls.builtins.formatting.autopep8)
+      -- table.insert(opts.sources, nls.builtins.formatting.autopep8)
+      table.insert(
+        opts.sources,
+        nls.builtins.formatting.autopep8.with({
+          extra_args = { "--indent-size=2" },
+          -- extra_args = { "--indent-size=2 --ignore=E121" },
+        })
+      )
     end,
   },
 

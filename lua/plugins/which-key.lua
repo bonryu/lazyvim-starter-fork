@@ -9,10 +9,14 @@ return {
       -- vim.list_extend(opts.defaults, {
       --   ["<leader>m"] = { name = "+molten" },
       -- })
+
+      -- Need to table.insert because Lazyvim has default bindings we don't want to override
+      -- Other option is to use require("which-key").regiester() inside config function
       table.insert(opts.defaults, { ["<leader>m"] = { name = "+molten" } })
       table.insert(opts.defaults, { ["<leader>r"] = { name = "+quarto" } })
       table.insert(opts.defaults, { ["<leader>i"] = { name = "+slime" } })
       table.insert(opts.defaults, { ["<leader>v"] = { name = "+Overseer" } })
+      table.insert(opts.defaults, { ["<leader>j"] = { name = "+IPythonCell" } })
     end,
     -- opts = {
     --   plugins = { spelling = true },

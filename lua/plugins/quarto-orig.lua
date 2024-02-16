@@ -6,7 +6,9 @@
 -- completion engine nvim-cmp.
 -- Thus, instead of having to change your configuration entirely,
 -- this takes your existings config and adds on top where necessary.
-
+if true then
+  return {}
+end
 return {
 
   -- this taps into vim.ui.select and vim.ui.input

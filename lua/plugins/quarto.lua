@@ -93,8 +93,8 @@ return {
       { "<leader>ii", ":split term://ipython<cr>", desc = "split terminal: ipython" },
       { "<leader>ip", ":split term://python<cr>", desc = "split terminal: python" },
       { "<leader>ij", ":split term://julia<cr>", desc = "split terminal: julia" },
-      { "<leader>in", ":vsplit term://$SHELL<cr>", desc = "vsplit terminal: shell" },
-      { "<leader>iN", ":vsplit term://$SHELL<cr>", desc = "split terminal: shell" },
+      { "<leader>is", ":vsplit term://$SHELL<cr>", desc = "vsplit terminal: shell" },
+      { "<leader>iS", ":vsplit term://$SHELL<cr>", desc = "split terminal: shell" },
       { "<leader>iR", ":vsplit term://R<cr>", desc = "vsplit terminal: R" },
       { "<leader>iP", ":vsplit term://python<cr>", desc = "vsplit terminal: python" },
       { "<leader>iI", ":vsplit term://ipython<cr>", desc = "vsplit termianl: ipython" },
@@ -220,21 +220,41 @@ return {
       local cmp = require("cmp")
       local lspkind = require("lspkind")
       -- lspkind.init()
-      opts.sources = cmp.config.sources({
+      opts.sources = { -- cmp.config.sources({
         { name = "otter" },
-        { name = "path" },
+        {
+          name = "path",
+          -- option = {
+          --   get_cwd = function()
+          --     return vim.fs.dirname(vim.fs.find({ ".git", ".marksman.toml", "_quarto.yml" }, { upward = true })[1])
+          --   end,
+          --get_cwd = require('cmp-path').
+
+          -- get_cwd = function()
+          -- return require("lspconfig.util").root_pattern(".git", ".marksman.toml", "_quarto.yml") or
+          -- end,
+
+          -- get_cwd = function(fname)
+          --       return vim.fs.dirname(vim.fs.find({ ".git", ".marksman.toml", "_quarto.yml" }, { upward = true })[1]),
+          --         or
+          --     return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
+          --       fname
+          --     ) or util.path.dirname(fname)
+          -- end,
+          -- get_cwd = vim.fs.dirname(vim.fs.find({ ".git", ".marksman.toml", "_quarto.yml" }, { upward = true })[1]),
+          -- },
+        },
         { name = "nvim_lsp" },
         { name = "nvim_lsp_signature_help" },
-        { name = "luasnip" },
-        { name = "buffer" },
-        { name = "spell" },
-        { name = "pandoc_references" },
         { name = "calc" },
-        -- }, {
+        { name = "luasnip", keyword_length = 3, max_item_count = 3 },
+        { name = "pandoc_references" },
+        { name = "buffer", keyword_length = 5, max_item_count = 3 },
+        { name = "spell" },
         { name = "treesitter", keyword_length = 5, max_item_count = 3 },
         { name = "latex_symbols" },
         { name = "emoji" },
-      })
+      } -- )
       -- formatfunc = function(_, item)
       --   local icons = require("lazyvim.config").icons.kinds
       --   if icons[item.kind] then
@@ -280,5 +300,34 @@ return {
       luasnip.filetype_extend("quarto", { "markdown" })
       luasnip.filetype_extend("rmarkdown", { "markdown" })
     end,
+  },
+
+  -- paste an image to markdown from the clipboard
+  -- :PasteImg,
+  {
+    "dfendr/clipboard-image.nvim",
+    keys = {
+      { "<leader>ip", ":PasteImg<cr>", desc = "image paste" },
+    },
+    cmd = {
+      "PasteImg",
+    },
+    config = function()
+      require("clipboard-image").setup({
+        quarto = {
+          img_dir = "img",
+          affix = "![](%s)",
+        },
+      })
+    end,
+  },
+
+  -- preview equations
+  {
+    "jbyuki/nabla.nvim",
+    keys = {
+      { "<leader>re", ':lua require"nabla".toggle_virt()<cr>', "toggle equations" },
+      { "<leader>rh", ':lua require"nabla".popup()<cr>', "hover equation" },
+    },
   },
 }
