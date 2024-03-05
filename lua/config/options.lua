@@ -22,15 +22,14 @@ local options = {
   -- f is path of the file opened in the buffer.
   winbar = "%=%m %f",
   conceallevel = 0,
+  clipboard = "",
 }
 
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
-
 -- vim.api.nvim_set_hl(0, "@customline", { bg = "#c53b53" })
 vim.api.nvim_set_hl(0, "@customline", { bg = "#4fd6be" })
---
 -- custom python provider
 local virtual_env = vim.fn.expand("$HOME") .. "/.pyenv/versions/nvim31013"
 local python = virtual_env .. "/bin/python3"
