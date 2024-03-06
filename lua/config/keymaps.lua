@@ -115,3 +115,6 @@ if Util.has("bufferline.nvim") then
   map("n", "<C-S-PageDown>", "<cmd>BufferLineMoveNext<cr>", { desc = "Move buffer right" })
   map("n", "<C-S-PageUp>", "<cmd>BufferLineMovePrev<cr>", { desc = "Move buffer left" })
 end
+
+map("n", "[<tab>", "gT", { desc = "Go to previous tab page" })
+map("n", "]<tab>", "gt", { desc = "Go to next tab page" })
