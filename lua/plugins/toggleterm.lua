@@ -15,15 +15,27 @@ return {
       toggleterm.setup(opts)
 
       function _G.set_terminal_keymaps()
-        local opts2 = { noremap = true }
-        vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts2)
-        vim.api.nvim_buf_set_keymap(0, "t", "<A-h>", [[<C-\><C-n><C-W>h]], opts2)
-        vim.api.nvim_buf_set_keymap(0, "t", "<A-j>", [[<C-\><C-n><C-W>j]], opts2)
-        vim.api.nvim_buf_set_keymap(0, "t", "<A-k>", [[<C-\><C-n><C-W>k]], opts2)
-        vim.api.nvim_buf_set_keymap(0, "t", "<A-l>", [[<C-\><C-n><C-W>l]], opts2)
+        local opts2 = { buffer = 0, noremap = true }
+        vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts2)
+        vim.keymap.set("t", "<A-h>", [[<C-\><C-n><C-W>h]], opts2)
+        vim.keymap.set("t", "<A-j>", [[<C-\><C-n><C-W>j]], opts2)
+        vim.keymap.set("t", "<A-k>", [[<C-\><C-n><C-W>k]], opts2)
+        vim.keymap.set("t", "<A-l>", [[<C-\><C-n><C-W>l]], opts2)
       end
 
       vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+
+      local Terminal = require("toggleterm.terminal").Terminal
+      local floatterm = Terminal:new({
+        direction = "float",
+        hidden = true,
+      })
+
+      function _Floatterm_toggle()
+        floatterm:toggle()
+      end
+
+      vim.keymap.set({ "n", "t" }, [[<A-\>]], "<cmd>lua _Floatterm_toggle()<CR>", { noremap = true, silent = true })
     end,
   },
 }
