@@ -200,7 +200,7 @@ return {
     dependencies = {
       { "jmbuhr/otter.nvim" },
       { "hrsh7th/cmp-nvim-lsp" },
-      { "hrsh7th/cmp-nvim-lsp-signature-help" },
+      -- { "hrsh7th/cmp-nvim-lsp-signature-help" },
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-path" },
       { "hrsh7th/cmp-calc" },
@@ -245,7 +245,7 @@ return {
           -- },
         },
         { name = "nvim_lsp" },
-        { name = "nvim_lsp_signature_help" },
+        -- { name = "nvim_lsp_signature_help" },
         { name = "calc" },
         { name = "luasnip", keyword_length = 3, max_item_count = 3 },
         { name = "pandoc_references" },
