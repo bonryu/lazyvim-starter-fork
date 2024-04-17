@@ -9,6 +9,7 @@ return {
       insert_mappings = true,
       terminal_mappings = true,
       clear_env = false,
+      direction = "horizontal",
     },
     config = function(_, opts)
       local toggleterm = require("toggleterm")
