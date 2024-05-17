@@ -11,6 +11,9 @@ return {
       filesystem = {
         bind_to_cwd = true,
       },
+      window = {
+        width = 30,
+      },
     },
   },
 }

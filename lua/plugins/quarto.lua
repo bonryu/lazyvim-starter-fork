@@ -48,9 +48,9 @@ return {
         },
       },
       codeRunner = {
-        enabled = false,
-        default_method = nil, -- "molten" or "slime"
-        ft_runners = {}, -- filetype to runner, ie. `{ python = "molten" }`.
+        enabled = true,
+        default_method = "molten", -- "molten" or "slime"
+        -- ft_runners = {}, -- filetype to runner, ie. `{ python = "molten" }`.
         -- Takes precedence over `default_method`
         never_run = { "yaml" }, -- filetypes which are never sent to a code runner
       },
@@ -64,9 +64,9 @@ return {
         document_symbols = "gS",
       },
     },
-    ft = "quarto",
+    ft = { "quarto", "markdown" },
     keys = {
-      { "<leader>ra", ":QuartoActivate<cr>", desc = "quarto activate" },
+      { "<leader>rA", ":QuartoActivate<cr>", desc = "quarto activate" },
       { "<leader>rp", ":lua require'quarto'.quartoPreview()<cr>", desc = "quarto preview" },
       { "<leader>rq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "quarto close" },
       { "<leader>rh", ":QuartoHelp ", desc = "quarto help" },
@@ -100,6 +100,25 @@ return {
       { "<leader>iI", ":vsplit term://ipython<cr>", desc = "vsplit termianl: ipython" },
       { "<leader>iJ", ":vsplit term://julia<cr>", desc = "vsplit termina: julia" },
     },
+    config = function(_, opts)
+      local quarto = require("quarto")
+      quarto.setup(opts)
+      local runner = require("quarto.runner")
+      require("which-key").register({
+        ["<leader>rc"] = { runner.run_cell, "run cell", silent = true },
+        ["<leader>ra"] = { runner.run_above, "run cell and above", silent = true },
+        -- ["<leader>rA"] = { runner.run_all, "run all cells", silent = true },
+        ["<leader>rl"] = { runner.run_line, "run line", silent = true },
+        ["<leader>rv"] = { runner.run_range, "run visual range", silent = true, mode = "v" },
+        ["<leader>RA"] = {
+          function()
+            runner.run_all(true)
+          end,
+          "run all cells of all languages",
+          silent = true,
+        },
+      })
+    end,
   },
 
   -- send code from python/r/qmd documets to a terminal or REPL
@@ -326,8 +345,8 @@ return {
   {
     "jbyuki/nabla.nvim",
     keys = {
-      { "<leader>re", ':lua require"nabla".toggle_virt()<cr>', "toggle equations" },
-      { "<leader>rh", ':lua require"nabla".popup()<cr>', "hover equation" },
+      { "<leader>rn", ':lua require"nabla".toggle_virt()<cr>', desc = "Nabla toggle equations" },
+      { "<leader>rN", ':lua require"nabla".popup()<cr>', desc = "Nabla hover equation" },
     },
   },
 }
