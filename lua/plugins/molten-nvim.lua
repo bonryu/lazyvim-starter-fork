@@ -8,16 +8,16 @@ return {
       -- these are examples, not defaults. Please see the readme
       -- vim.g.molten_auto_open_output = true
       vim.g.molten_image_provider = "image.nvim"
-      vim.g.molten_output_win_max_height = 20
-      vim.g.molten_wrap_output = true
+      vim.g.molten_output_win_max_height = 40
+      -- vim.g.molten_wrap_output = true
       -- vim.g.molten_virt_text_output = true
       -- vim.g.molten_output_virt_lines = true
-      vim.g.molten_virt_lines_off_by_1 = false
+      vim.g.molten_virt_lines_off_by_1 = true
       -- vim.g.molten_output_win_border = { "", "", "", "" }
       -- vim.g.molten_output_win_border = { "", "-", "", "", "", "_", "", "" }
       -- vim.g.molten_output_win_style = "minimal"
-      vim.g.molten_output_win_hide_on_leave = true
-      vim.g.molten_output_win_cover_gutter = false
+      -- vim.g.molten_output_win_hide_on_leave = true
+      -- vim.g.molten_output_win_cover_gutter = false
       -- vim.g.molten_cover_empty_lines = false
     end,
     keys = {
@@ -54,4 +54,8 @@ return {
       { "<leader>mx", ":MoltenOpenInBrowser<CR>", silent = true, desc = "open output in browser" },
     },
   },
+  -- {
+  --   "akinsho/bufferline.nvim",
+  --   enabled = false,
+  -- },
 }

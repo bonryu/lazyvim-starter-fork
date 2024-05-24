@@ -1,7 +1,7 @@
 return {
   {
-    dir = "/home/bonryu/Projects/nvim/venv-selector.nvim/",
-    -- "linux-cultist/venv-selector.nvim",
+    -- dir = "/home/bonryu/Projects/nvim/venv-selector.nvim/",
+    "linux-cultist/venv-selector.nvim",
     opts = {
       parents = 0,
       anaconda_base_path = "/home/bonryu/miniconda3",

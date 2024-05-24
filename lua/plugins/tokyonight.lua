@@ -9,9 +9,9 @@ return {
           bold = 1,
           italic = 1,
         }
-        hl.WinBarNC = {
-          default = 1,
-        }
+        -- hl.WinBarNC = {
+        --   default = 1,
+        -- }
       end,
     },
   },

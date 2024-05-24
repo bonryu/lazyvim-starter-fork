@@ -5,6 +5,7 @@ end
 return {
   {
     "nvim-lualine/lualine.nvim",
+    enabled = false,
     opts = function(_, opts)
       -- opts.disabled_filetypes = {
       --   statusline = {},

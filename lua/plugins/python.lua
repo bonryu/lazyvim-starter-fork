@@ -9,27 +9,26 @@ return {
     opts = function(_, opts)
       table.insert(opts.ensure_installed, "mypy")
       table.insert(opts.ensure_installed, "ruff")
-      table.insert(opts.ensure_installed, "black")
+      -- table.insert(opts.ensure_installed, "black")
       table.insert(opts.ensure_installed, "pyright")
-      table.insert(opts.ensure_installed, "autopep8")
       table.insert(opts.ensure_installed, "debugpy")
     end,
   },
 
-  {
-    "nvimtools/none-ls.nvim",
-    opts = function(_, opts)
-      local nls = require("null-ls")
-      -- table.insert(opts.sources, nls.builtins.formatting.autopep8)
-      table.insert(
-        opts.sources,
-        nls.builtins.formatting.autopep8.with({
-          extra_args = { "--indent-size=2" },
-          -- extra_args = { "--indent-size=2 --ignore=E121" },
-        })
-      )
-    end,
-  },
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   opts = function(_, opts)
+  --     local nls = require("null-ls")
+  --     -- table.insert(opts.sources, nls.builtins.formatting.autopep8)
+  --     table.insert(
+  --       opts.sources,
+  --       nls.builtins.formatting.autopep8.with({
+  --         extra_args = { "--indent-size=2" },
+  --         -- extra_args = { "--indent-size=2 --ignore=E121" },
+  --       })
+  --     )
+  --   end,
+  -- },
 
   -- {
   --   "nvimtools/none-ls.nvim",
