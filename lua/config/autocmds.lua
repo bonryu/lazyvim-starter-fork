@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("VimEnter", {
-  group = augroup("python_filetype"),
+  -- group = augroup("python_filetype"),
   desc = "Auto select virtualenv Nvim open",
   pattern = "*",
   callback = function()

@@ -27,3 +27,5 @@ for k, v in pairs(options) do
 end
 -- don't run vim ftplugin on top
 vim.api.nvim_buf_set_var(0, "did_ftplugin", true)
+
+require("quarto").activate()

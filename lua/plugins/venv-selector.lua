@@ -6,6 +6,7 @@ return {
       parents = 0,
       anaconda_base_path = "/home/bonryu/miniconda3",
       anaconda_envs_path = "/home/bonryu/miniconda3/envs",
+      pyenv_path = "/home/bonryu/.pyenv/versions",
     },
     -- autocmd put into config/autocmds.lua to automatically activate cached envrionment
     keys = {
