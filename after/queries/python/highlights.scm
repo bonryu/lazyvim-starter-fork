@@ -1,7 +1,7 @@
 ;extends
 
 
-(
-(comment) @cell.boundary
-(#match? @cell.boundary "^\\# ?\\%\\%")
-) @customline
+; (
+; (comment) @cell.boundary
+; (#match? @cell.boundary "^\\# ?\\%\\%")
+; ) @customline
