@@ -35,6 +35,42 @@ return {
         enabled = true,
         additional_vim_regex_highlighting = false,
       },
+
+      textobjects = {
+        move = {
+          enable = true,
+          set_jumps = false, -- you can change this if you want.
+          goto_next_start = {
+            --- ... other keymaps
+            ["]l"] = { query = "@code_cell.inner", desc = "next code cell" },
+          },
+          goto_previous_start = {
+            --- ... other keymaps
+            ["[l"] = { query = "@code_cell.inner", desc = "previous code cell" },
+          },
+        },
+        select = {
+          enable = true,
+          lookahead = true, -- you can change this if you want
+          keymaps = {
+            --- ... other keymaps
+            ["il"] = { query = "@code_cell.inner", desc = "in cell" },
+            ["al"] = { query = "@code_cell.outer", desc = "around cell" },
+          },
+        },
+        swap = { -- Swap only works with code blocks that are under the same
+          -- markdown header
+          enable = true,
+          swap_next = {
+            --- ... other keymap
+            ["<leader>msn"] = "@code_cell.outer",
+          },
+          swap_previous = {
+            --- ... other keymap
+            ["<leader>msp"] = "@code_cell.outer",
+          },
+        },
+      },
     },
   },
   -- below is probably not needed.

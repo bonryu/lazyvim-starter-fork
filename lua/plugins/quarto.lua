@@ -103,21 +103,21 @@ return {
     config = function(_, opts)
       local quarto = require("quarto")
       quarto.setup(opts)
-      local runner = require("quarto.runner")
-      require("which-key").register({
-        ["<leader>rc"] = { runner.run_cell, "run cell", silent = true },
-        ["<leader>ra"] = { runner.run_above, "run cell and above", silent = true },
-        -- ["<leader>rA"] = { runner.run_all, "run all cells", silent = true },
-        ["<leader>rl"] = { runner.run_line, "run line", silent = true },
-        ["<leader>rv"] = { runner.run_range, "run visual range", silent = true, mode = "v" },
-        ["<leader>RA"] = {
-          function()
-            runner.run_all(true)
-          end,
-          "run all cells of all languages",
-          silent = true,
-        },
-      })
+      -- local runner = require("quarto.runner")
+      -- require("which-key").register({
+      --   ["<leader>rc"] = { runner.run_cell, "run cell", silent = true },
+      --   ["<leader>ra"] = { runner.run_above, "run cell and above", silent = true },
+      --   -- ["<leader>rA"] = { runner.run_all, "run all cells", silent = true },
+      --   ["<leader>rl"] = { runner.run_line, "run line", silent = true },
+      --   ["<leader>rv"] = { runner.run_range, "run visual range", silent = true, mode = "v" },
+      --   ["<leader>RA"] = {
+      --     function()
+      --       runner.run_all(true)
+      --     end,
+      --     "run all cells of all languages",
+      --     silent = true,
+      --   },
+      -- })
     end,
   },
 
