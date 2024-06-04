@@ -66,14 +66,14 @@ return {
     },
     ft = { "quarto", "markdown" },
     keys = {
-      { "<leader>rA", ":QuartoActivate<cr>", desc = "quarto activate" },
+      { "<leader>rA", ":QuartoActivate<cr>", desc = "Quarto Activate" },
       { "<leader>rp", ":lua require'quarto'.quartoPreview()<cr>", desc = "quarto preview" },
       { "<leader>rq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "quarto close" },
       { "<leader>rh", ":QuartoHelp ", desc = "quarto help" },
       { "<leader>re", ":lua require'otter'.export()<cr>", desc = "otter export" },
       { "<leader>rE", ":lua require'otter'.export(true)<cr>", desc = "otter export overwrite" },
       { "<leader>rsa", ":QuartoSendAbove<cr>", desc = "quarto send above" },
-      { "<leader>rsr", ":QuartoSendAll<cr>", desc = "quarto run all" },
+      { "<leader>rsr", ":QuartoSendAll<cr>", desc = "quarto send all" },
 
       -- normal mode
       { "<leader>i<cr>", ":SlimeSend<cr>", desc = "slime send <c-cr>" },
@@ -103,21 +103,22 @@ return {
     config = function(_, opts)
       local quarto = require("quarto")
       quarto.setup(opts)
-      -- local runner = require("quarto.runner")
-      -- require("which-key").register({
-      --   ["<leader>rc"] = { runner.run_cell, "run cell", silent = true },
-      --   ["<leader>ra"] = { runner.run_above, "run cell and above", silent = true },
-      --   -- ["<leader>rA"] = { runner.run_all, "run all cells", silent = true },
-      --   ["<leader>rl"] = { runner.run_line, "run line", silent = true },
-      --   ["<leader>rv"] = { runner.run_range, "run visual range", silent = true, mode = "v" },
-      --   ["<leader>RA"] = {
-      --     function()
-      --       runner.run_all(true)
-      --     end,
-      --     "run all cells of all languages",
-      --     silent = true,
-      --   },
-      -- })
+      local runner = require("quarto.runner")
+      require("which-key").register({
+        ["<leader>rc"] = { runner.run_cell, "run cell", silent = true },
+        ["<leader>ra"] = { runner.run_above, "run cell and above", silent = true },
+        ["<leader>rb"] = { runner.run_above, "run cell and below", silent = true },
+        ["<leader>rra"] = { runner.run_all, "run all cells", silent = true },
+        ["<leader>rl"] = { runner.run_line, "run line", silent = true },
+        ["<leader>rv"] = { runner.run_range, "run visual range", silent = true, mode = "v" },
+        ["<leader>rrA"] = {
+          function()
+            runner.run_all(true)
+          end,
+          "run all cells of all languages",
+          silent = true,
+        },
+      })
     end,
   },
 

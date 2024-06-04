@@ -1,6 +1,14 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    -- -- Can't seem to make a which key prefix "<leader>ms"
+    -- init = function()
+    --   require("which-key").register({
+    --     ["<leader>ms"] = {
+    --       name = "+molten swaps",
+    --     },
+    --   })
+    -- end,
     opts = {
       ensure_installed = {
         "bash",
@@ -63,15 +71,25 @@ return {
           enable = true,
           swap_next = {
             --- ... other keymap
-            ["<leader>msn"] = "@code_cell.outer",
+            ["<leader>mj"] = { "@code_cell.outer", desc = "swap with next" },
           },
           swap_previous = {
             --- ... other keymap
-            ["<leader>msp"] = "@code_cell.outer",
+            ["<leader>mk"] = { "@code_cell.outer", desc = "swap with previous" },
           },
         },
       },
     },
+    -- -- Can't seem to make a which key prefix "<leader>ms"
+    -- config = function(_, opts)
+    --   local treesitter = require("nvim-treesitter.configs")
+    --   treesitter.setup(opts)
+    --   require("which-key").register({
+    --     ["<leader>ms"] = {
+    --       name = "+molten swaps",
+    --     },
+    --   })
+    -- end,
   },
   -- below is probably not needed.
   -- { "nvim-treesitter/nvim-treesitter-textobjects" },

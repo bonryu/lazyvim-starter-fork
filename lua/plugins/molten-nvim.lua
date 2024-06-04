@@ -36,19 +36,19 @@ return {
       vim.api.nvim_create_autocmd("User", {
         pattern = "MoltenInitPost",
         callback = function()
-          -- quarto code runner mappings
-          local r = require("quarto.runner")
-          vim.keymap.set("n", "<leader>rc", r.run_cell, { desc = "run cell", silent = true })
-          vim.keymap.set("n", "<leader>ra", r.run_above, { desc = "run cell and above", silent = true })
-          vim.keymap.set("n", "<leader>rb", r.run_below, { desc = "run cell and below", silent = true })
-          vim.keymap.set("n", "<leader>rl", r.run_line, { desc = "run line", silent = true })
-          vim.keymap.set("n", "<leader>rA", r.run_all, { desc = "run all cells", silent = true })
-          vim.keymap.set("n", "<leader>RA", function()
-            r.run_all(true)
-          end, {
-            desc = "run all cells of all languages",
-            silent = true,
-          })
+          -- -- quarto code runner mappings
+          -- local r = require("quarto.runner")
+          -- vim.keymap.set("n", "<leader>rc", r.run_cell, { desc = "run cell", silent = true })
+          -- vim.keymap.set("n", "<leader>ra", r.run_above, { desc = "run cell and above", silent = true })
+          -- vim.keymap.set("n", "<leader>rb", r.run_below, { desc = "run cell and below", silent = true })
+          -- vim.keymap.set("n", "<leader>rl", r.run_line, { desc = "run line", silent = true })
+          -- vim.keymap.set("n", "<leader>rA", r.run_all, { desc = "run all cells", silent = true })
+          -- vim.keymap.set("n", "<leader>RA", function()
+          --   r.run_all(true)
+          -- end, {
+          --   desc = "run all cells of all languages",
+          --   silent = true,
+          -- })
 
           -- setup some molten specific keybindings
           vim.keymap.set(
@@ -110,25 +110,24 @@ return {
         end,
       })
 
-      -- Initialize molten buffer
-      local imb = function(e)
+      -- automatically import output chunks from a jupyter notebook
+      -- tries to find a kernel that matches the kernel in the jupyter notebook
+      -- falls back to a kernel that matches the name of the active venv (if any)
+      local imb = function(e) -- init molten buffer
         vim.schedule(function()
           local kernels = vim.fn.MoltenAvailableKernels()
-
           local try_kernel_name = function()
             local metadata = vim.json.decode(io.open(e.file, "r"):read("a"))["metadata"]
             return metadata.kernelspec.name
           end
           local ok, kernel_name = pcall(try_kernel_name)
-
           if not ok or not vim.tbl_contains(kernels, kernel_name) then
             kernel_name = nil
-            local venv = os.getenv("CONDA_PREFIX")
+            local venv = os.getenv("VIRTUAL_ENV")
             if venv ~= nil then
               kernel_name = string.match(venv, "/.+/(.+)")
             end
           end
-
           if kernel_name ~= nil and vim.tbl_contains(kernels, kernel_name) then
             vim.cmd(("MoltenInit %s"):format(kernel_name))
           end
@@ -136,20 +135,20 @@ return {
         end)
       end
 
-      -- -- we have to do this as well so that we catch files opened like nvim ./hi.ipynb
-      -- vim.api.nvim_create_autocmd("BufEnter", {
-      --   pattern = { "*.ipynb" },
-      --   callback = function(e)
-      --     if vim.api.nvim_get_vvar("vim_did_enter") ~= 1 then
-      --       imb(e)
-      --     end
-      --   end,
-      -- })
-
       -- automatically import output chunks from a jupyter notebook
       vim.api.nvim_create_autocmd("BufAdd", {
         pattern = { "*.ipynb" },
         callback = imb,
+      })
+
+      -- we have to do this as well so that we catch files opened like nvim ./hi.ipynb
+      vim.api.nvim_create_autocmd("BufEnter", {
+        pattern = { "*.ipynb" },
+        callback = function(e)
+          if vim.api.nvim_get_vvar("vim_did_enter") ~= 1 then
+            imb(e)
+          end
+        end,
       })
 
       -- automatically export output chunks to a jupyter notebook
@@ -162,6 +161,7 @@ return {
         end,
       })
     end,
+
     keys = {
       {
         "<leader>mi",

@@ -1,6 +1,6 @@
 ;extends
 
-; The following was used for colouring # %% in python files. But replaced with headlines.nvim.
+; The following was used for colouring # %% in python files. But replaced with headlines.nvim. See lua/plugins/ui.lua.
 
 ; (
 ; (comment) @cell.boundary

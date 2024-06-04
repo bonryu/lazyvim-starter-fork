@@ -109,21 +109,21 @@ return {
         --   fat_headline_upper_string = "-",
         --   fat_headline_lower_string = "",
         -- },
-        python = {
-          query = vim.treesitter.query.parse(
-            "python",
-            [[
-                (
-                    (comment) @dash
-                    (#match? @dash "^\\# \\%\\%")
-                )
-            ]]
-          ),
-          treesitter_language = "python",
-          headline_highlights = { "Headline" },
-          dash_highlight = "Dash",
-          dash_string = "-",
-        },
+        -- python = {
+        --   query = vim.treesitter.query.parse(
+        --     "python",
+        --     [[
+        --         (
+        --             (comment) @dash
+        --             (#match? @dash "^\\# \\%\\%")
+        --         )
+        --     ]]
+        --   ),
+        --   treesitter_language = "python",
+        --   headline_highlights = { "Headline" },
+        --   dash_highlight = "Dash",
+        --   dash_string = "-",
+        -- },
       })
     end,
   },

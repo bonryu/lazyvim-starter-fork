@@ -1,3 +1,6 @@
+-- if true then
+--   return {}
+-- end
 return {
 
   -- which-key helps you remember key bindings by showing a popup
@@ -13,11 +16,18 @@ return {
       -- Need to table.insert because Lazyvim has default bindings we don't want to override
       -- Other option is to use require("which-key").regiester() inside config function
       table.insert(opts.defaults, { ["<leader>m"] = { name = "+molten" } })
+      -- table.insert(opts.defaults, { ["<leader>n"] = { name = "+molten2" } })
+      -- table.insert(opts.defaults, { ["<leader>ms"] = { name = "+treesitter swap" } })
       table.insert(opts.defaults, { ["<leader>r"] = { name = "+quarto" } })
+      table.insert(opts.defaults, { ["<leader>rr"] = { name = "+quarto runs" } })
+      table.insert(opts.defaults, { ["<leader>rs"] = { name = "+quarto sends" } })
       table.insert(opts.defaults, { ["<leader>i"] = { name = "+slime" } })
       table.insert(opts.defaults, { ["<leader>v"] = { name = "+Overseer" } })
       table.insert(opts.defaults, { ["<leader>j"] = { name = "+IPythonCell" } })
     end,
+    -- -- From ~/.local/share/nvimLazy/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
+    -- "folke/which-key.nvim",
+    -- event = "VeryLazy",
     -- opts = {
     --   plugins = { spelling = true },
     --   defaults = {

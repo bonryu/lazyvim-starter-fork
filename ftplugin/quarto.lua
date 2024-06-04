@@ -29,3 +29,4 @@ end
 vim.api.nvim_buf_set_var(0, "did_ftplugin", true)
 
 require("quarto").activate()
+-- require("otter").dev_setup()
