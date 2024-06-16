@@ -22,7 +22,6 @@ return {
       -- vim.g.molten_cover_empty_lines = false
       vim.g.molten_auto_open_output = false
       vim.g.molten_output_show_more = true
-      vim.g.molten_image_provider = "image.nvim"
       vim.g.molten_output_win_border = { "", "━", "", "" }
       vim.g.molten_output_win_max_height = 25
       vim.g.molten_output_virt_lines = true
@@ -80,8 +79,8 @@ return {
 
           -- if we're in a python file, change the configuration a little
           if vim.bo.filetype == "python" then
-            vim.fn.MoltenUpdateOption("molten_virt_lines_off_by_1", false)
-            vim.fn.MoltenUpdateOption("molten_virt_text_output", false)
+            vim.fn.MoltenUpdateOption("molten_virt_lines_off_by_1", false) -- orig false
+            vim.fn.MoltenUpdateOption("molten_virt_text_output", true) -- orig false
           end
         end,
       })
@@ -95,7 +94,7 @@ return {
           end
           if require("molten.status").initialized() == "Molten" then
             vim.fn.MoltenUpdateOption("molten_virt_lines_off_by_1", false)
-            vim.fn.MoltenUpdateOption("molten_virt_text_output", false)
+            vim.fn.MoltenUpdateOption("molten_virt_text_output", true) --  orig false
           end
         end,
       })

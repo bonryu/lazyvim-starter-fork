@@ -5,4 +5,4 @@
 ; (
 ; (comment) @cell.boundary
 ; (#match? @cell.boundary "^\\# ?\\%\\%")
-; ) @customline
+; ) @code_cell.inner

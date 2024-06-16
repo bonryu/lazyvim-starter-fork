@@ -26,3 +26,12 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
   once = true,
 })
+
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = augroup("python_filetype"),
+--   pattern = { "*.py" },
+--   callback = function()
+--     vim.keymap.set('n', "[l",  )
+--
+--   end,
+-- })

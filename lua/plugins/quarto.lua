@@ -107,7 +107,7 @@ return {
       require("which-key").register({
         ["<leader>rc"] = { runner.run_cell, "run cell", silent = true },
         ["<leader>ra"] = { runner.run_above, "run cell and above", silent = true },
-        ["<leader>rb"] = { runner.run_above, "run cell and below", silent = true },
+        ["<leader>rb"] = { runner.run_below, "run cell and below", silent = true },
         ["<leader>rra"] = { runner.run_all, "run all cells", silent = true },
         ["<leader>rl"] = { runner.run_line, "run line", silent = true },
         ["<leader>rv"] = { runner.run_range, "run visual range", silent = true, mode = "v" },
@@ -313,9 +313,11 @@ return {
       end
       require("cmp").setup(opts)
       -- for friendly snippets
-      require("luasnip.loaders.from_vscode").lazy_load()
+      -- -- lazyvim already does this since luasnips is enabled in lazy.lua, don't do it again or else you'll see snippets autocopletion entries twice.
+      -- require("luasnip.loaders.from_vscode").lazy_load()
       -- for custom snippets
-      require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snips" } })
+      -- -- by  default, luasnip or lazyvim already loads nvimLazy/snips folder
+      -- require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snips" } })
       -- link quarto and rmarkdown to markdown snippets
       luasnip.filetype_extend("quarto", { "markdown" })
       luasnip.filetype_extend("rmarkdown", { "markdown" })

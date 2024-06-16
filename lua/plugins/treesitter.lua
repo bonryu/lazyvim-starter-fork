@@ -70,13 +70,29 @@ return {
           -- markdown header
           enable = true,
           swap_next = {
-            --- ... other keymap
-            ["<leader>mj"] = { "@code_cell.outer", desc = "swap with next" },
+            [")m"] = "@function.outer",
+            [")c"] = "@comment.outer",
+            [")a"] = "@parameter.inner",
+            [")b"] = "@block.outer",
+            [")C"] = "@class.outer",
+            [")l"] = "@code_cell.outer",
           },
           swap_previous = {
-            --- ... other keymap
-            ["<leader>mk"] = { "@code_cell.outer", desc = "swap with previous" },
+            ["(m"] = "@function.outer",
+            ["(c"] = "@comment.outer",
+            ["(a"] = "@parameter.inner",
+            ["(b"] = "@block.outer",
+            ["(C"] = "@class.outer",
+            ["(l"] = "@code_cell.outer",
           },
+          -- swap_next = {
+          --   --- ... other keymap
+          --   ["<leader>mj"] = { "@code_cell.outer", desc = "swap with next" },
+          -- },
+          -- swap_previous = {
+          --   --- ... other keymap
+          --   ["<leader>mk"] = { "@code_cell.outer", desc = "swap with previous" },
+          -- },
         },
       },
     },

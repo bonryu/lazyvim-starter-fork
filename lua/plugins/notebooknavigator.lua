@@ -1,33 +1,56 @@
+-- if true then
+--   return {}
+-- end
+local hint = br.notebookhint
+-- local hint = [[
+--  _j_/_k_: move down/up    _r_: run cell
+--  _l_: run line            _R_: run above
+--  ^^_<esc>_/_q_: exit
+--  ]]
 return {
   {
+    "nvimtools/hydra.nvim",
+  },
+  {
     "GCBallesteros/NotebookNavigator.nvim",
-    keys = {
-      {
-        "]h",
-        function()
-          require("notebook-navigator").move_cell("d")
-        end,
-      },
-      {
-        "[h",
-        function()
-          require("notebook-navigator").move_cell("u")
-        end,
-      },
-      { "<leader>X", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
-      { "<leader>x", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
+    opts = {
+      -- activate_hydrakeys = "<leader>h",
+      -- exclude = { "quarto", "markdown", "ipynb" },
+      repl_provider = "molten",
     },
+    -- ft = { "python" },
     dependencies = {
       "echasnovski/mini.comment",
       -- "hkupty/iron.nvim", -- repl provider
       -- "akinsho/toggleterm.nvim", -- alternative repl provider
       "benlubas/molten-nvim", -- alternative repl provider
-      "anuvyklack/hydra.nvim",
+      "nvimtools/hydra.nvim",
+      -- "anuvyklack/hydra.nvim",
     },
     event = "VeryLazy",
-    config = function()
+    keys = {
+      -- {
+      --   "]i",
+      --   function()
+      --     require("notebook-navigator").move_cell("d")
+      --   end,
+      --   desc = "notebooknavig move_cell(d)",
+      --   ft = "python",
+      -- },
+      -- {
+      --   "[i",
+      --   function()
+      --     require("notebook-navigator").move_cell("u")
+      --   end,
+      --   desc = "notebooknavig move_cell(u)",
+      --   ft = "python",
+      -- },
+      { "<leader>X", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
+      { "<leader>x", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
+    },
+    config = function(_, opts)
       local nn = require("notebook-navigator")
-      nn.setup({ activate_hydra_keys = "<leader>h" })
+      nn.setup(opts)
     end,
   },
 

@@ -21,3 +21,9 @@ function br.set_env()
     --   vim.g.python3_host_prog = "python3"
   end
 end
+
+br.notebookhint = [[
+ _j_/_k_: move down/up    _r_: run
+ _l_: run line            _R_: run
+ ^^_<esc>_/_q_: exit
+ ]]
