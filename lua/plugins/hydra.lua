@@ -18,41 +18,20 @@ return {
       local nn = require("notebook-navigator")
       local function keys(str)
         return function()
+          --  "m" means remap keys
           vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(str, true, false, true), "m", true)
         end
       end
-      local function run()
+      local function keys2(str)
         return function()
-          if vim.bo.filetype == "python" then
-            notify("filetype is: " .. vim.bo.filetype)
-            return nn.run_cell()
-            -- return "<cmd>lua require('notebook-navigator').run_cell()<cr>" -- doesn't work
-          elseif vim.bo.filetype == "quarto" then
-            notify("filetype is: " .. vim.bo.filetype)
-            -- qrunner.run_cell()  -- does the same thing  as return qrunner.run_cell()
-            -- qrunner.run_below()
-            -- return qrunner.run_cell()
-            return ":QuartoSend<CR>" -- Works!!
-            -- return ":lua require'quarto'.runner.QuartoSend<cr>:MoltenNext<CR>"  -- Works!!
-            -- { "r", ":QuartoSend<CR>" },
-          end
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(str, true, false, true), "n", true)
         end
       end
-      local function run_and_move()
-        return function()
-          if vim.bo.filetype == "python" then
-            notify("filetype is: " .. vim.bo.filetype)
-            return nn.run_and_move()
-          elseif vim.bo.filetype == "quarto" then
-            notify("filetype is: " .. vim.bo.filetype)
-            return ":QuartoSend<CR>:MoltenNext<CR>"
-          end
-        end
-      end
+
       local Hydra = require("hydra")
       Hydra({
-        name = "Navigator",
-        hint = hint,
+        name = "QuartoNotebook",
+        hint = "_j_/_k_: ↑/↓ | _o_/_O_: new cell ↓/↑ | _r_: run | _s_how/_h_ide | run _a_bove",
         config = {
           color = "pink",
           invoke_on_body = true,
@@ -61,19 +40,18 @@ return {
           },
         },
         mode = { "n" },
-        body = "<leader>h", -- this is the key that triggers the hydra
+        body = "<leader>hr",
         heads = {
-          -- comment = "c", run = "X", run_and_move = "x", move_up = "k", move_down = "j", add_cell_before = "a", "add_cell_after" = "b"
-          { "j", keys("]l"), { desc = "move down" } },
-          { "k", keys("[l"), { desc = "move " } },
-          { "r", run(), { desc = "run" } },
-          -- { "r", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
-          -- { "r", ":QuartoSend<CR>" },
-          { "l", ":QuartoSendLine<CR>" },
-          { "R", run_and_move(), { desc = "run and move down" } },
-          -- { "R", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
-          { "<esc>", nil, { exit = true } },
-          { "q", nil, { exit = true } },
+          { "j", keys("]l"), { desc = "↓" } },
+          { "k", keys("[l"), { desc = "↑" } },
+          { "o", keys("/```<CR>:nohl<CR>o<CR>pyc<C-e>"), { desc = "new cell ↓", exit = true } },
+          { "O", keys("?```.<CR>:nohl<CR><leader>kO<CR>pyc<C-e>"), { desc = "new cell ↑", exit = true } },
+          { "r", ":QuartoSend<CR>", { desc = "run" } },
+          { "s", ":noautocmd MoltenEnterOutput<CR>", { desc = "show" } },
+          { "h", ":MoltenHideOutput<CR>", { desc = "hide" } },
+          { "a", ":QuartoSendAbove<CR>", { desc = "run above" } },
+          { "<esc>", nil, { exit = true, desc = false } },
+          { "q", nil, { exit = true, desc = false } },
         },
       })
     end,

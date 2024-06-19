@@ -50,11 +50,19 @@ return {
           set_jumps = false, -- you can change this if you want.
           goto_next_start = {
             --- ... other keymaps
-            ["]l"] = { query = "@code_cell.inner", desc = "next code cell" },
+            ["]l"] = { query = "@code_cell.inner", desc = "next code cell start" },
           },
           goto_previous_start = {
             --- ... other keymaps
-            ["[l"] = { query = "@code_cell.inner", desc = "previous code cell" },
+            ["[l"] = { query = "@code_cell.inner", desc = "previous code cell start" },
+          },
+          goto_next_end = {
+            --- ... other keymaps
+            ["]L"] = { query = "@code_cell.inner", desc = "next code cell end" },
+          },
+          goto_previous_end = {
+            --- ... other keymaps
+            ["[L"] = { query = "@code_cell.inner", desc = "previous code cell end" },
           },
         },
         select = {

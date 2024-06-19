@@ -25,5 +25,6 @@ end
 br.notebookhint = [[
  _j_/_k_: move down/up    _r_: run
  _l_: run line            _R_: run
+ _a_: add cell before
  ^^_<esc>_/_q_: exit
  ]]

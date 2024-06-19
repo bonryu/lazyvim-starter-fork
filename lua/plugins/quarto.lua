@@ -319,6 +319,7 @@ return {
       -- -- by  default, luasnip or lazyvim already loads nvimLazy/snips folder
       -- require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snips" } })
       -- link quarto and rmarkdown to markdown snippets
+      require("luasnip.loaders.from_lua").lazy_load({ paths = { vim.fn.stdpath("config") .. "/lua/snippets" } })
       luasnip.filetype_extend("quarto", { "markdown" })
       luasnip.filetype_extend("rmarkdown", { "markdown" })
     end,

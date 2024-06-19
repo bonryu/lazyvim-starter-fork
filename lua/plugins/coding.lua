@@ -1,6 +1,3 @@
-if true then
-  return {}
-end
 return {
   {
     -- By Bon. prevent replaceing ``` with ````

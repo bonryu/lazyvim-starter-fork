@@ -10,7 +10,7 @@ local c = ls.choice_node
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 
-ls.add_snippets("markdown", {
+ls.add_snippets("quarto", {
   s(
     "det",
     fmt(
@@ -28,7 +28,7 @@ ls.add_snippets("markdown", {
 
 -- ls.filetype_extend("quarto", { "markdown" })
 
-ls.add_snippets("markdown", {
+ls.add_snippets("quarto", {
   -- code cell
   s(
     {
