@@ -18,7 +18,7 @@ return {
       -- exclude = { "quarto", "markdown", "ipynb" },
       repl_provider = "molten",
     },
-    -- ft = { "python" },
+    ft = { "python" },
     dependencies = {
       "echasnovski/mini.comment",
       -- "hkupty/iron.nvim", -- repl provider
@@ -73,7 +73,7 @@ return {
     opts = function()
       local nn = require("notebook-navigator")
 
-      local opts = { custom_textobjects = { h = nn.miniai_spec } }
+      local opts = { custom_textobjects = { y = nn.miniai_spec, desc = "notebook cell" } }
       return opts
     end,
   },

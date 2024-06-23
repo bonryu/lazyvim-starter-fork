@@ -50,19 +50,19 @@ return {
           set_jumps = false, -- you can change this if you want.
           goto_next_start = {
             --- ... other keymaps
-            ["]l"] = { query = "@code_cell.inner", desc = "next code cell start" },
+            ["]x"] = { query = "@code_cell.inner", desc = "next code cell start" },
           },
           goto_previous_start = {
             --- ... other keymaps
-            ["[l"] = { query = "@code_cell.inner", desc = "previous code cell start" },
+            ["[x"] = { query = "@code_cell.inner", desc = "previous code cell start" },
           },
           goto_next_end = {
             --- ... other keymaps
-            ["]L"] = { query = "@code_cell.inner", desc = "next code cell end" },
+            ["]X"] = { query = "@code_cell.inner", desc = "next code cell end" },
           },
           goto_previous_end = {
             --- ... other keymaps
-            ["[L"] = { query = "@code_cell.inner", desc = "previous code cell end" },
+            ["[X"] = { query = "@code_cell.inner", desc = "previous code cell end" },
           },
         },
         select = {
@@ -70,8 +70,8 @@ return {
           lookahead = true, -- you can change this if you want
           keymaps = {
             --- ... other keymaps
-            ["il"] = { query = "@code_cell.inner", desc = "in cell" },
-            ["al"] = { query = "@code_cell.outer", desc = "around cell" },
+            ["ix"] = { query = "@code_cell.inner", desc = "in cell" },
+            ["ax"] = { query = "@code_cell.outer", desc = "around cell" },
           },
         },
         swap = { -- Swap only works with code blocks that are under the same
@@ -83,7 +83,7 @@ return {
             [")a"] = "@parameter.inner",
             [")b"] = "@block.outer",
             [")C"] = "@class.outer",
-            [")l"] = "@code_cell.outer",
+            [")x"] = "@code_cell.outer",
           },
           swap_previous = {
             ["(m"] = "@function.outer",
@@ -91,7 +91,7 @@ return {
             ["(a"] = "@parameter.inner",
             ["(b"] = "@block.outer",
             ["(C"] = "@class.outer",
-            ["(l"] = "@code_cell.outer",
+            ["(x"] = "@code_cell.outer",
           },
           -- swap_next = {
           --   --- ... other keymap
