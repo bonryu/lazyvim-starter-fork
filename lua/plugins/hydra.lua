@@ -124,6 +124,21 @@ return {
           { "q", nil, { exit = true, desc = false } },
         },
       })
+
+      -- change the configuration when editing a python file
+      vim.api.nvim_create_autocmd("BufEnter", {
+        pattern = "*.py",
+        callback = function()
+          vim.keymap.set("n", "<leader>h", keys("<leader>hn"), { silent = true })
+        end,
+      })
+      -- Undo those config changes when we go back to a markdown or quarto file
+      vim.api.nvim_create_autocmd("BufEnter", {
+        pattern = { "*.qmd", "*.md", "*.ipynb" },
+        callback = function()
+          vim.keymap.set("n", "<leader>h", keys("<leader>hr"), { silent = true })
+        end,
+      })
     end,
   },
 }
