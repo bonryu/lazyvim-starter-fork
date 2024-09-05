@@ -9,18 +9,15 @@
 
 local wk = require("which-key")
 
-wk.register({
-  o = {
-    name = "otter & code",
-    a = { require("otter").dev_setup, "otter activate" },
-    ["o"] = { "o# %%<cr>", "new code chunk below" },
-    ["O"] = { "O# %%<cr>", "new code chunk above" },
-    ["b"] = { "o```{bash}<cr>```<esc>O", "bash code chunk" },
-    ["r"] = { "o```{r}<cr>```<esc>O", "r code chunk" },
-    ["p"] = { "o```{python}<cr>```<esc>O", "python code chunk" },
-    ["j"] = { "o```{julia}<cr>```<esc>O", "julia code chunk" },
-  },
-}, { mode = "n", prefix = "<leader>" })
+wk.add({
+  { "<leader>o", group = "otter & code" },
+  { "<leader>oO", "O# %%<cr>", desc = "new code chunk above" },
+  { "<leader>ob", "o```{bash}<cr>```<esc>O", desc = "bash code chunk" },
+  { "<leader>oj", "o```{julia}<cr>```<esc>O", desc = "julia code chunk" },
+  { "<leader>oo", "o# %%<cr>", desc = "new code chunk below" },
+  { "<leader>op", "o```{python}<cr>```<esc>O", desc = "python code chunk" },
+  { "<leader>or", "o```{r}<cr>```<esc>O", desc = "r code chunk" },
+})
 
 -- if true then
 --   return {}
@@ -104,20 +101,23 @@ return {
       local quarto = require("quarto")
       quarto.setup(opts)
       local runner = require("quarto.runner")
-      require("which-key").register({
-        ["<leader>rc"] = { runner.run_cell, "run cell", silent = true },
-        ["<leader>ra"] = { runner.run_above, "run cell and above", silent = true },
-        ["<leader>rb"] = { runner.run_below, "run cell and below", silent = true },
-        ["<leader>rra"] = { runner.run_all, "run all cells", silent = true },
-        ["<leader>rl"] = { runner.run_line, "run line", silent = true },
-        ["<leader>rv"] = { runner.run_range, "run visual range", silent = true, mode = "v" },
-        ["<leader>rrA"] = {
+      require("which-key").add({
+
+        { "<leader>ra", runner.run_cell, desc = "run cell and above", silent = true },
+        { "<leader>rb", runner.run_above, desc = "run cell and below", silent = true },
+        { "<leader>rc", runner.run_below, desc = "run cell", silent = true },
+        { "<leader>rl", runner.run_line, desc = "run line", silent = true },
+        { "<leader>rra", runner.run_all, desc = "run all cells", silent = true },
+        {
+          "<leader>rrA",
           function()
             runner.run_all(true)
           end,
-          "run all cells of all languages",
+
+          desc = "run all cells of all languages",
           silent = true,
         },
+        { "<leader>rv", runner.run_range, desc = "run visual range", silent = true, mode = "v" },
       })
     end,
   },
@@ -186,10 +186,10 @@ return {
         end
       end
 
-      require("which-key").register({
-        ["<leader>im"] = { mark_terminal, "mark terminal" },
-        ["<leader>is"] = { set_terminal, "set terminal" },
-        ["<leader>it"] = { toggle_slime_tmux_nvim, "toggle tmux/nvim terminal" },
+      require("which-key").add({
+        { "<leader>im", mark_terminal, desc = "mark terminal" },
+        { "<leader>is", set_terminal, desc = "set terminal" },
+        { "<leader>it", toggle_slime_tmux_nvim, desc = "toggle tmux/nvim terminal" },
       })
     end,
   },

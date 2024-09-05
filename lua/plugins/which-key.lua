@@ -9,21 +9,34 @@ return {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = function(_, opts)
+      vim.list_extend(opts.spec, {
+        {
+          mode = { "n", "v" },
+          { "<leader>m", group = "molten" },
+          { "<leader>r", group = "quarto" },
+          { "<leader>rr", group = "quarto runs" },
+          { "<leader>rs", group = "quarto sends" },
+          { "<leader>i", group = "slime" },
+          { "<leader>v", group = "Overseer" },
+          { "<leader>j", group = "IPythonCell" },
+          { "<leader>F", group = "FuGitive" },
+          { "<leader>h", group = "Hydras" },
+        },
+      })
       -- vim.list_extend(opts.defaults, {
       --   ["<leader>m"] = { name = "+molten" },
       -- })
 
       -- Need to table.insert because Lazyvim has default bindings we don't want to override
       -- Other option is to use require("which-key").regiester() inside config function
-      table.insert(opts.defaults, { ["<leader>m"] = { name = "+molten" } })
-      -- table.insert(opts.defaults, { ["<leader>n"] = { name = "+molten2" } })
-      -- table.insert(opts.defaults, { ["<leader>ms"] = { name = "+treesitter swap" } })
-      table.insert(opts.defaults, { ["<leader>r"] = { name = "+quarto" } })
-      table.insert(opts.defaults, { ["<leader>rr"] = { name = "+quarto runs" } })
-      table.insert(opts.defaults, { ["<leader>rs"] = { name = "+quarto sends" } })
-      table.insert(opts.defaults, { ["<leader>i"] = { name = "+slime" } })
-      table.insert(opts.defaults, { ["<leader>v"] = { name = "+Overseer" } })
-      table.insert(opts.defaults, { ["<leader>j"] = { name = "+IPythonCell" } })
+      -- table.insert(opts.spec, { ["<leader>m"] = { name = "+molten" } })
+      -- table.insert(opts.spec, { ["<leader>r"] = { name = "+quarto" } })
+      -- table.insert(opts.spec, { ["<leader>rr"] = { name = "+quarto runs" } })
+      -- table.insert(opts.spec, { ["<leader>rs"] = { name = "+quarto sends" } })
+      -- table.insert(opts.spec, { ["<leader>i"] = { name = "+slime" } })
+      -- table.insert(opts.spec, { ["<leader>v"] = { name = "+Overseer" } })
+      -- table.insert(opts.spec, { ["<leader>j"] = { name = "+IPythonCell" } })
+      -- table.insert(opts.spec, { ["<leader>F"] = { name = "+FuGitive" } })
     end,
     -- -- From ~/.local/share/nvimLazy/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
     -- "folke/which-key.nvim",

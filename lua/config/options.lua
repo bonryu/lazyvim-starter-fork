@@ -23,11 +23,13 @@ local options = {
   winbar = "%=%m %f",
   conceallevel = 0,
   clipboard = "",
+  scrolloff = 10,
 }
 
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
+vim.opt.diffopt:append("vertical")
 
 -- LSP Server to use for Python.
 -- Set to "basedpyright" to use basedpyright instead of pyright.

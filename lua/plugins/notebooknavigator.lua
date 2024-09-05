@@ -13,9 +13,13 @@ return {
   },
   {
     "GCBallesteros/NotebookNavigator.nvim",
+    dir = "/home/bonryu/Projects/nvim/NotebookNavigator.nvim/",
     opts = {
       -- activate_hydrakeys = "<leader>h",
       -- exclude = { "quarto", "markdown", "ipynb" },
+      exclude = {
+        filetypes = { "", nil, "git" },
+      },
       repl_provider = "molten",
     },
     ft = { "python" },
