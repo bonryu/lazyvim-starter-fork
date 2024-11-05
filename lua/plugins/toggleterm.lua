@@ -5,6 +5,13 @@ return {
     -- cmd = "ToggleTerm",
     -- keys = { { [[<C-\>]], "<cmd>ToggleTerm<cr>", desc = "Toggle Term" } },
     opts = {--[[ things you want to change go here]]
+      size = function(term)
+        if term.direction == "horizontal" then
+          return 15
+        elseif term.direction == "vertical" then
+          return vim.o.columns * 0.4
+        end
+      end,
       open_mapping = [[<c-\>]],
       insert_mappings = true,
       terminal_mappings = true,
@@ -36,7 +43,15 @@ return {
         floatterm:toggle()
       end
 
+      local vertterm = Terminal:new({
+        direction = "vertical",
+        hidden = true,
+      })
+      function _Vertterm_toggle()
+        vertterm:toggle()
+      end
       vim.keymap.set({ "n", "t" }, [[<A-\>]], "<cmd>lua _Floatterm_toggle()<CR>", { noremap = true, silent = true })
+      vim.keymap.set({ "n", "t" }, [[<C-A-\>]], "<cmd>lua _Vertterm_toggle()<CR>", { noremap = true, silent = true })
     end,
   },
 }
