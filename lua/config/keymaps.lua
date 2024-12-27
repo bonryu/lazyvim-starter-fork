@@ -28,14 +28,16 @@ vim.keymap.set("n", ">>", "<Nop>")
 map("n", "<<", "<<" .. br.nshift .. "h", { remap = false })
 map("n", ">>", ">>" .. br.nshift .. "l", { remap = false })
 
+-- remove keymaps set by Folke found in ~/.local/share/nvimLazy/lazy/LazyVim/lua/lazyvim/config/keymaps.lua
 vim.keymap.set({ "n", "v", "i" }, "<A-h>", "<Nop>")
 vim.keymap.set({ "n", "v", "i" }, "<A-j>", "<Nop>")
 vim.keymap.set({ "n", "v", "i" }, "<A-k>", "<Nop>")
 vim.keymap.set({ "n", "v", "i" }, "<A-l>", "<Nop>")
--- vim.keymap.set("n", "<C-h>", "<Nop>")
--- vim.keymap.set("n", "<C-j>", "<Nop>")
--- vim.keymap.set("n", "<C-k>", "<Nop>")
--- vim.keymap.set("n", "<C-l>", "<Nop>")
+vim.keymap.set("n", "<C-Left>", "<Nop>")
+vim.keymap.set("n", "<C-Down>", "<Nop>")
+vim.keymap.set("n", "<C-Up>", "<Nop>")
+vim.keymap.set("n", "<C-Right>", "<Nop>")
+
 -- Move Lines
 map("n", "<C-S-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
 map("n", "<C-S-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
@@ -76,6 +78,10 @@ map(
 -- map("n", "<A-J>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 -- map("n", "<A-H>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 
+map("n", "<C-Up>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
+map("n", "<C-Right>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
+map("n", "<C-Down>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
+map("n", "<C-Left>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
 map("n", "<A-k>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
 map("n", "<A-l>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
 map("n", "<A-j>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
