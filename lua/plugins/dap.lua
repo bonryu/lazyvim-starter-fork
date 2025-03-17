@@ -9,6 +9,14 @@ return {
       keys = {
         { "<leader>dr", function() require("dapui").open({reset = true }) end, desc = "ui reset", mode = {"n"} },
       },
+      opts = {
+        element_mappings = {
+          stacks = {
+            open = "<CR>",
+            expand = "o",
+          },
+        },
+      },
     },
     keys = {
       -- {
@@ -32,27 +40,27 @@ return {
         end,
         desc = "Continue",
       },
-      -- {
-      --   "<leader>da",
-      --   function()
-      --     require("dap").continue({ before = get_args })
-      --   end,
-      --   desc = "Run with Args",
-      -- },
-      -- {
-      --   "<leader>dC",
-      --   function()
-      --     require("dap").run_to_cursor()
-      --   end,
-      --   desc = "Run to Cursor",
-      -- },
-      -- {
-      --   "<leader>dg",
-      --   function()
-      --     require("dap").goto_()
-      --   end,
-      --   desc = "Go to line (no execute)",
-      -- },
+      {
+        "<leader>da",
+        function()
+          require("dap").continue({ before = get_args })
+        end,
+        desc = "Run with Args",
+      },
+      {
+        "<leader>dC",
+        function()
+          require("dap").run_to_cursor()
+        end,
+        desc = "Run to Cursor",
+      },
+      {
+        "<leader>dg",
+        function()
+          require("dap").goto_()
+        end,
+        desc = "Go to line (no execute)",
+      },
       {
         "<F11>", -- "<leader>di",
         function()
@@ -60,26 +68,40 @@ return {
         end,
         desc = "Step Into",
       },
-      -- {
-      --   "<leader>dj",
-      --   function()
-      --     require("dap").down()
-      --   end,
-      --   desc = "Down",
-      -- },
-      -- {
-      --   "<leader>dk",
-      --   function()
-      --     require("dap").up()
-      --   end,
-      --   desc = "Up",
-      -- },
       {
-        "<S-F11>", -- "<leader>do",
+        "<leader>dj",
+        function()
+          require("dap").down()
+        end,
+        desc = "Down",
+      },
+      {
+        "<leader>dk",
+        function()
+          require("dap").up()
+        end,
+        desc = "Up",
+      },
+      {
+        "<leader>do",
+        function()
+          require("dap").step_out()
+        end,
+        desc = "Step Out <Shift-F11>",
+      },
+      {
+        "<S-F11>",
         function()
           require("dap").step_out()
         end,
         desc = "Step Out",
+      },
+      {
+        "<leader>dO",
+        function()
+          require("dap").step_over()
+        end,
+        desc = "Step Over <F10>",
       },
       {
         "<F10>", -- "<leader>dO",
@@ -88,13 +110,20 @@ return {
         end,
         desc = "Step Over",
       },
-      -- {
-      --   "<leader>dp",
-      --   function()
-      --     require("dap").pause()
-      --   end,
-      --   desc = "dap Pause",
-      -- },
+      {
+        "<leader>dp",
+        function()
+          require("dap").pause()
+        end,
+        desc = "dap Pause",
+      },
+      {
+        "<leader>dt",
+        function()
+          require("dap").terminate()
+        end,
+        desc = "dap Terminate <Shift-F5>",
+      },
       {
         "<S-F5>", -- "<leader>dt",
         function()
@@ -103,7 +132,7 @@ return {
         desc = "dap Terminate",
       },
       {
-        "<leader>dR", -- "<leader>dt",
+        "<leader>dR",
         function()
           require("dap").terminate()
           require("dap").continue()

@@ -18,6 +18,7 @@ return {
           { "<leader>rs", group = "quarto sends" },
           { "<leader>i", group = "slime" },
           { "<leader>v", group = "Overseer" },
+          { "<leader>V", group = "venv-selector" },
           { "<leader>j", group = "IPythonCell" },
           { "<leader>F", group = "FuGitive" },
           { "<leader>h", group = "Hydras" },

@@ -18,10 +18,15 @@ return {
     -- autocmd put into config/autocmds.lua to automatically activate cached envrionment
     keys = {
       -- Keymap to open VenvSelector to pick a venv.
-      { "<leader>vs", "<cmd>VenvSelect<cr>", desc = "Select virtual env" },
+      { "<leader>Vs", "<cmd>VenvSelect<cr>", desc = "Select virtual env" },
       -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
-      { "<leader>vc", "<cmd>VenvSelectCached<cr>" },
-      { "<leader>vd", "<cmd>lua require('venv-selector').deactivate_venv()<cr>", desc = "Deactivate virtual env" },
+      { "<leader>Vc", "<cmd>VenvSelectCached<cr>", desc = "Select chached env" },
+      { "<leader>Vd", "<cmd>lua require('venv-selector').deactivate_venv()<cr>", desc = "Deactivate virtual env" },
+      {
+        "<leader>Vr",
+        "<cmd>lua require('venv-selector').deactivate_venv()<cr><cmd>VenvSelectCached<cr>",
+        desc = "Re-activate cached env",
+      },
     },
     config = function(_, opts)
       require("venv-selector").setup(opts)
