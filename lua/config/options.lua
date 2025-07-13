@@ -34,7 +34,7 @@ vim.opt.diffopt:append("vertical")
 -- LSP Server to use for Python.
 -- Set to "basedpyright" to use basedpyright instead of pyright.
 vim.g.lazyvim_python_lsp = "pyright"
-vim.g.lazyvim_python_ruff = "ruff_lsp"
+vim.g.lazyvim_python_ruff = "ruff"
 
 -- vim.api.nvim_set_hl(0, "@customline", { bg = "#c53b53" })
 vim.api.nvim_set_hl(0, "@customline", { bg = "#4fd6be" })

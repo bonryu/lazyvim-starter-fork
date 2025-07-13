@@ -15,9 +15,9 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("VimEnter", {
-  -- group = augroup("python_filetype"),
+  group = augroup("python_filetype"),
   desc = "Auto select virtualenv Nvim open",
-  pattern = "*",
+  pattern = "python",
   callback = function()
     local venv = vim.fn.findfile("pyproject.toml", vim.fn.getcwd() .. ";")
     if venv ~= "" then
@@ -35,3 +35,15 @@ vim.api.nvim_create_autocmd("VimEnter", {
 --
 --   end,
 -- })
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("python_filetype"),
+  desc = "default b:dispatch variable for python files",
+  pattern = "python",
+  callback = function()
+    vim.cmd([[
+      compiler pyunit
+      setlocal makeprg=python3\ %
+    ]])
+  end,
+})
