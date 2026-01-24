@@ -3,7 +3,7 @@ if false then
 end
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     -- opts = function(_, opts)
     --   PATH = "append",
     -- end,

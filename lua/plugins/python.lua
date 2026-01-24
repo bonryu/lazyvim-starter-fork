@@ -5,7 +5,7 @@
 -- end
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = function(_, opts)
       table.insert(opts.ensure_installed, "mypy")
       table.insert(opts.ensure_installed, "ruff")

@@ -24,7 +24,7 @@ return {
     },
     ft = { "python" },
     dependencies = {
-      "echasnovski/mini.comment",
+      "nvim-mini/mini.comment",
       -- "hkupty/iron.nvim", -- repl provider
       -- "akinsho/toggleterm.nvim", -- alternative repl provider
       "benlubas/molten-nvim", -- alternative repl provider
@@ -59,7 +59,7 @@ return {
   },
 
   {
-    "echasnovski/mini.hipatterns",
+    "nvim-mini/mini.hipatterns",
     event = "VeryLazy",
     dependencies = { "GCBallesteros/NotebookNavigator.nvim" },
     opts = function()
@@ -71,7 +71,7 @@ return {
   },
 
   {
-    "echasnovski/mini.ai",
+    "nvim-mini/mini.ai",
     event = "VeryLazy",
     dependencies = { "GCBallesteros/NotebookNavigator.nvim" },
     opts = function()

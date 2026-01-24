@@ -1,7 +1,7 @@
 return {
   {
     -- By Bon. prevent replaceing ``` with ````
-    "echasnovski/mini.pairs",
+    "nvim-mini/mini.pairs",
     event = "VeryLazy",
     config = function()
       require("mini.pairs").setup()

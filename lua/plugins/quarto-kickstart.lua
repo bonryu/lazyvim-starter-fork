@@ -126,7 +126,7 @@ return {
     event = "BufReadPre",
     dependencies = {
       { "williamboman/mason-lspconfig.nvim" },
-      { "williamboman/mason.nvim" },
+      { "mason-org/mason.nvim" },
       { "hrsh7th/cmp-nvim-lsp" },
       { "folke/neodev.nvim", opt = {} },
       {
