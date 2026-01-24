@@ -22,8 +22,11 @@ local options = {
   -- f is path of the file opened in the buffer.
   winbar = "%=%m %f",
   conceallevel = 0,
-  clipboard = "",
+  clipboard = "", --unnamedplus, ""
   scrolloff = 10,
+  spelllang = { "en_ca" },
+  --wildmenu = true,
+  --wildmode = "longest:full,full",
 }
 
 for k, v in pairs(options) do

@@ -14,6 +14,9 @@ return {
       window = {
         width = 30,
       },
+      clipboard = {
+        sync = "universal",
+      },
     },
   },
 }
