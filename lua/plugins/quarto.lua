@@ -55,22 +55,22 @@ return {
         hover = "K",
         definition = "gd",
         type_definition = "gD",
-        rename = "<leader>rR",
-        format = "<leader>rf",
+        rename = "<leader>QR",
+        format = "<leader>Qf",
         references = "gr",
         document_symbols = "gS",
       },
     },
     ft = { "quarto", "markdown" },
     keys = {
-      { "<leader>rA", ":QuartoActivate<cr>", desc = "Quarto Activate" },
-      { "<leader>rp", ":lua require'quarto'.quartoPreview()<cr>", desc = "quarto preview" },
-      { "<leader>rq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "quarto close" },
-      { "<leader>rh", ":QuartoHelp ", desc = "quarto help" },
-      { "<leader>re", ":lua require'otter'.export()<cr>", desc = "otter export" },
-      { "<leader>rE", ":lua require'otter'.export(true)<cr>", desc = "otter export overwrite" },
-      { "<leader>rsa", ":QuartoSendAbove<cr>", desc = "quarto send above" },
-      { "<leader>rsr", ":QuartoSendAll<cr>", desc = "quarto send all" },
+      { "<leader>QA", ":QuartoActivate<cr>", desc = "Quarto Activate" },
+      { "<leader>Qp", ":lua require'quarto'.quartoPreview()<cr>", desc = "quarto preview" },
+      { "<leader>Qq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "quarto close" },
+      { "<leader>Qh", ":QuartoHelp ", desc = "quarto help" },
+      { "<leader>Qe", ":lua require'otter'.export()<cr>", desc = "otter export" },
+      { "<leader>QE", ":lua require'otter'.export(true)<cr>", desc = "otter export overwrite" },
+      { "<leader>Qsa", ":QuartoSendAbove<cr>", desc = "quarto send above" },
+      { "<leader>Qsr", ":QuartoSendAll<cr>", desc = "quarto send all" },
 
       -- normal mode
       { "<leader>i<cr>", ":SlimeSend<cr>", desc = "slime send <c-cr>" },
@@ -103,13 +103,13 @@ return {
       local runner = require("quarto.runner")
       require("which-key").add({
 
-        { "<leader>ra", runner.run_cell, desc = "run cell and above", silent = true },
-        { "<leader>rb", runner.run_above, desc = "run cell and below", silent = true },
-        { "<leader>rc", runner.run_below, desc = "run cell", silent = true },
-        { "<leader>rl", runner.run_line, desc = "run line", silent = true },
-        { "<leader>rra", runner.run_all, desc = "run all cells", silent = true },
+        { "<leader>Qa", runner.run_cell, desc = "run cell and above", silent = true },
+        { "<leader>Qb", runner.run_above, desc = "run cell and below", silent = true },
+        { "<leader>Qc", runner.run_below, desc = "run cell", silent = true },
+        { "<leader>Ql", runner.run_line, desc = "run line", silent = true },
+        { "<leader>Qra", runner.run_all, desc = "run all cells", silent = true },
         {
-          "<leader>rrA",
+          "<leader>QrA",
           function()
             runner.run_all(true)
           end,
@@ -117,7 +117,7 @@ return {
           desc = "run all cells of all languages",
           silent = true,
         },
-        { "<leader>rv", runner.run_range, desc = "run visual range", silent = true, mode = "v" },
+        { "<leader>Qv", runner.run_range, desc = "run visual range", silent = true, mode = "v" },
       })
     end,
   },
@@ -349,8 +349,8 @@ return {
   {
     "jbyuki/nabla.nvim",
     keys = {
-      { "<leader>rn", ':lua require"nabla".toggle_virt()<cr>', desc = "Nabla toggle equations" },
-      { "<leader>rN", ':lua require"nabla".popup()<cr>', desc = "Nabla hover equation" },
+      { "<leader>Qn", ':lua require"nabla".toggle_virt()<cr>', desc = "Nabla toggle equations" },
+      { "<leader>QN", ':lua require"nabla".popup()<cr>', desc = "Nabla hover equation" },
     },
   },
 }

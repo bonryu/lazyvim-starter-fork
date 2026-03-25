@@ -10,11 +10,37 @@ return {
       table.insert(opts.ensure_installed, "mypy")
       table.insert(opts.ensure_installed, "ruff")
       -- table.insert(opts.ensure_installed, "black")
-      table.insert(opts.ensure_installed, "pyright")
-      table.insert(opts.ensure_installed, "debugpy")
+      table.insert(opts.ensure_installed, "basedpyright")
+      -- table.insert(opts.ensure_installed, "python-lsp-server")
+      -- have to manuallly install to python3 provider environment pyhton-lsp-server[all], debugpy, pynvim, for maximum stability.
+      opts.automatic_installation = { exclude = { "pylsp", "debugpy" } }
     end,
   },
 
+  -- 2. Configure the LSP and the rope-plugin auto-installation, needed for class refactoring
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        pylsp = {
+          cmd = { vim.g.python_lsp_bin },
+          settings = {
+            pylsp = {
+              plugins = {
+                -- Enable rope for refactoring (extracting, etc)
+                rope_autoimport = { enabled = true },
+                rope_completion = { enabled = true },
+                jedi = {
+                  extra_paths = { vim.fn.getcwd() }, -- Look in the current folder first
+                  environment = vim.env.VIRTUAL_ENV, -- Use the project venv if active
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
   -- {
   --   "nvimtools/none-ls.nvim",
   --   opts = function(_, opts)

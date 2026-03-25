@@ -13,9 +13,9 @@ return {
         {
           mode = { "n", "v" },
           { "<leader>m", group = "molten" },
-          { "<leader>r", group = "quarto" },
-          { "<leader>rr", group = "quarto runs" },
-          { "<leader>rs", group = "quarto sends" },
+          { "<leader>Q", group = "quarto" },
+          { "<leader>Qr", group = "quarto runs" },
+          { "<leader>Qs", group = "quarto sends" },
           { "<leader>i", group = "slime" },
           { "<leader>v", group = "Overseer" },
           { "<leader>V", group = "venv-selector" },

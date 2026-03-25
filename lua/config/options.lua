@@ -36,7 +36,7 @@ vim.opt.diffopt:append("vertical")
 -- vim.opt.diffopt:append("followwrap")
 -- LSP Server to use for Python.
 -- Set to "basedpyright" to use basedpyright instead of pyright.
-vim.g.lazyvim_python_lsp = "pyright"
+vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_python_ruff = "ruff"
 
 -- vim.api.nvim_set_hl(0, "@customline", { bg = "#c53b53" })
@@ -46,6 +46,9 @@ local virtual_env = vim.fn.expand("$HOME") .. "/.pyenv/versions/nvim31013"
 local python = virtual_env .. "/bin/python3"
 vim.g.python3_host_prog = vim.fn.expand(python)
 vim.g.python_host_prog = vim.fn.expand(python)
+
+-- NEW: Define a global variable for our refactoring tool
+vim.g.python_lsp_bin = virtual_env .. "/bin/pylsp"
 
 -- local conda_prefix = os.getenv("CONDA_PREFIX")
 -- if not br.isempty(conda_prefix) then
