@@ -28,3 +28,15 @@ br.notebookhint = [[
  _a_: add cell before
  ^^_<esc>_/_q_: exit
  ]]
+
+function br.read_secret(filename)
+  -- Construct the full path to your secrets folder
+  local path = vim.fn.expand("$HOME/.secrets/" .. filename)
+  local file = io.open(path, "r")
+  if not file then
+    return nil
+  end
+  local content = file:read("*a"):gsub("%s+", "") -- Read all and strip whitespace/newlines
+  file:close()
+  return content
+end
