@@ -12,6 +12,7 @@ return {
       vim.list_extend(opts.spec, {
         {
           mode = { "n", "v" },
+          { "<leader>a", group = "AI" },
           { "<leader>m", group = "molten" },
           { "<leader>Q", group = "quarto" },
           { "<leader>Qr", group = "quarto runs" },

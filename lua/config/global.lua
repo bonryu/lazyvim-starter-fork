@@ -31,12 +31,25 @@ br.notebookhint = [[
 
 function br.read_secret(filename)
   -- Construct the full path to your secrets folder
-  local path = vim.fn.expand("$HOME/.secrets/" .. filename)
-  local file = io.open(path, "r")
-  if not file then
+  -- 1. Try to run the actual read logic
+  local ok, key = pcall(function()
+    -- Assuming your original logic looked something like this:
+    local path = vim.fn.expand("~/.secrets/" .. filename)
+    local f = io.open(path, "r")
+    if not f then
+      error("File not found")
+    end
+    local content = f:read("*all"):gsub("%s+", "") -- trim whitespace
+    f:close()
+    return content
+  end)
+
+  -- 2. Handle the result
+  if ok and key then
+    return key
+  else
+    -- Optional: Notify via Noice only once here instead of in every plugin
+    vim.notify("Secret not found: " .. filename, vim.log.levels.WARN)
     return nil
   end
-  local content = file:read("*a"):gsub("%s+", "") -- Read all and strip whitespace/newlines
-  file:close()
-  return content
 end

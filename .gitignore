@@ -8,3 +8,5 @@ foo.*
 data
 *.jukit
 .python-version
+**/secrets/
+*.key

@@ -2,6 +2,7 @@
 return {
   {
     "olimorris/codecompanion.nvim",
+    enabled = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
@@ -16,32 +17,49 @@ return {
       -- Useful for adding selected code to the chat
       { "<leader>aC", "<cmd>CodeCompanionChat Add<cr>", desc = "AI Add to Chat", mode = "v" },
     },
+    opts = {
+      opts = {
+        log_level = "DEBUG",
+      },
+    },
     config = function()
       require("codecompanion").setup({
-        strategies = {
+        interactions = {
           chat = {
-            adapter = "gemini",
+            adapter = {
+              name = "gemini",
+              model = "gemini-2.5-flash",
+            },
           },
           inline = {
-            adapter = "gemini",
+            adapter = {
+              name = "gemini",
+              model = "gemini-2.5-flash-lite",
+            },
           },
           agent = {
-            adapter = "gemini",
+            adapter = {
+              name = "gemini",
+              model = "gemini-2.5-flash",
+            },
           },
         },
+
         adapters = {
-          gemini = function()
-            return require("codecompanion.adapters").extend("gemini", {
-              env = {
-                api_key = _G.br.read_secret("default_gemini_api_key"), -- Or use os.getenv("GEMINI_API_KEY")
-              },
-              schema = {
-                model = {
-                  default = "gemini-2.0-flash", -- Fast and very capable for coding
+          http = {
+            gemini = function()
+              return require("codecompanion.adapters").extend("gemini", {
+                env = {
+                  api_key = _G.br.read_secret("default_gemini_api_key"), -- Or use os.getenv("GEMINI_API_KEY")
                 },
-              },
-            })
-          end,
+                -- schema = {
+                --   model = {
+                --     default = "gemini-2.0-flash", -- Fast and very capable for coding
+                --   },
+                -- },
+              })
+            end,
+          },
           -- claude = function()
           --   return require("codecompanion.adapters").extend("anthropic", {
           --     env = {
