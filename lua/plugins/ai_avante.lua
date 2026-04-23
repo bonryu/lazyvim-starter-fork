@@ -1,12 +1,20 @@
+local has_api_key = os.getenv("GEMINI_API_KEY") ~= nil
+
 return {
 
   {
     "yetone/avante.nvim",
+    -- Only load if we are in a folder that direnv has authorized
+    -- cond = function()
+    --   return os.getenv("GEMINI_API_KEY") ~= nil
+    -- end,
+    cond = has_api_key,
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     -- ⚠️ must add this setting! ! !
     build = vim.fn.has("win32") ~= 0 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
       or "make",
     event = "VeryLazy",
+    lazy = true,
     version = false, -- Never set this value to "*"! Never!
     ---@module 'avante'
     -- @type avante.Config
@@ -19,7 +27,6 @@ return {
       providers = {
         gemini = {
           -- Use your existing secret reader
-          api_key = _G.br.read_secret("default_gemini_api_key"),
           api_key_name = "GEMINI_API_KEY", -- Avante can read from ENV or you can pass the string
           model = "gemini-2.5-flash",
           timeout = 30000, -- 30s
@@ -48,20 +55,23 @@ return {
 
       -- This enables the background indexing service
       rag_service = { -- RAG Service configuration
-        enabled = false, -- Enables the RAG service
-        host_mount = os.getenv("HOME"), -- Host mount path for the rag service (Docker will mount this path)
+        -- Only enable if we actually have a key to power it
+        enabled = has_api_key, -- Enables the RAG service
+        host_mount = os.getenv("HOME") .. "/ai_workspace", -- Host mount path for the rag service (Docker will mount this path)
         runner = "docker", -- Runner for the RAG service (can use docker or nix)
         llm = { -- Language Model (LLM) configuration for RAG service
-          provider = "openai", -- LLM provider
-          endpoint = "https://api.openai.com/v1", -- LLM API endpoint
-          api_key = "OPENAI_API_KEY", -- Environment variable name for the LLM API key
-          model = "gpt-4o-mini", -- LLM model name
+          provider = "gemini",
+          endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+          -- Injecting your secret directly
+          -- api_key = _G.br.read_secret("default_gemini_api_key"),
+          api_key = "GEMINI_API_KEY",
+          model = "gemini-2.5-flash",
           extra = nil, -- Additional configuration options for LLM
         },
         embed = { -- Embedding model configuration for RAG service
-          provider = "openai", -- Embedding provider
-          endpoint = "https://api.openai.com/v1", -- Embedding API endpoint
-          api_key = "OPENAI_API_KEY", -- Environment variable name for the embedding API key
+          provider = "gemini", -- Embedding provider
+          endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+          api_key = "GEMINI_API_KEY", -- Environment variable name for the embedding API key
           model = "text-embedding-3-large", -- Embedding model name
           extra = nil, -- Additional configuration options for the embedding model
         },
