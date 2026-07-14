@@ -1,3 +1,6 @@
+if true then
+  return {}
+end
 local openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
 local gemini_api_key = os.getenv("GEMINI_API_KEY")
 -- local has_api_key = os.getenv("GEMINI_API_KEY") ~= nil
@@ -47,6 +50,7 @@ return {
 
   {
     "yetone/avante.nvim",
+    enabled = false,
     -- Only load if we are in a folder that direnv has authorized
     -- cond = function()
     --   return os.getenv("GEMINI_API_KEY") ~= nil
@@ -101,7 +105,8 @@ return {
           api_key_name = "OPENROUTER_API_KEY",
           -- model = "cohere/command-r-plus-08-2024",
           -- model = "anthropic/claude-4.6-sonnet",
-          model = "google/gemini-2.5-flash",
+          -- model = "google/gemini-2.5-flash",
+          model = "deepseek/deepseek-chat",
           timeout = 30000,
           extra_request_body = {
             temperature = 0,

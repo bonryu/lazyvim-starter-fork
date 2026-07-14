@@ -24,9 +24,11 @@ return {
       servers = {
         pylsp = {
           cmd = { vim.g.python_lsp_bin },
+          filetypes = { "python" },
           settings = {
             pylsp = {
               plugins = {
+                pyflakes = { enabled = false },
                 -- Enable rope for refactoring (extracting, etc)
                 rope_autoimport = { enabled = true },
                 rope_completion = { enabled = true },

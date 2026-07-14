@@ -29,22 +29,24 @@ map("n", "<<", "<<" .. br.nshift .. "h", { remap = false })
 map("n", ">>", ">>" .. br.nshift .. "l", { remap = false })
 
 -- remove keymaps set by Folke found in ~/.local/share/nvimLazy/lazy/LazyVim/lua/lazyvim/config/keymaps.lua
-vim.keymap.set({ "n", "v", "i" }, "<A-h>", "<Nop>")
-vim.keymap.set({ "n", "v", "i" }, "<A-j>", "<Nop>")
-vim.keymap.set({ "n", "v", "i" }, "<A-k>", "<Nop>")
-vim.keymap.set({ "n", "v", "i" }, "<A-l>", "<Nop>")
+-- keymaps for moving lines
+-- vim.keymap.set({ "n", "v", "i" }, "<A-h>", "<Nop>")
+-- vim.keymap.set({ "n", "v", "i" }, "<A-j>", "<Nop>")
+-- vim.keymap.set({ "n", "v", "i" }, "<A-k>", "<Nop>")
+-- vim.keymap.set({ "n", "v", "i" }, "<A-l>", "<Nop>")
+-- keymaps for resizing windows.
 vim.keymap.set("n", "<C-Left>", "<Nop>")
 vim.keymap.set("n", "<C-Down>", "<Nop>")
 vim.keymap.set("n", "<C-Up>", "<Nop>")
 vim.keymap.set("n", "<C-Right>", "<Nop>")
 
 -- Move Lines
-map("n", "<C-S-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
-map("n", "<C-S-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
-map("i", "<C-S-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
-map("i", "<C-S-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
-map("v", "<C-S-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-map("v", "<C-S-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+-- map("n", "<C-S-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+-- map("n", "<C-S-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+-- map("i", "<C-S-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+-- map("i", "<C-S-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+-- map("v", "<C-S-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+-- map("v", "<C-S-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- Move to window using the <Ctrl> hjkl keys
 map(
@@ -72,20 +74,24 @@ map(
   { desc = "Go to right window", remap = true }
 )
 
--- Resize window using <Alt-Shift> hjkl keys
--- map("n", "<A-K>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
--- map("n", "<A-L>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" }) -- Resize window using <ctrl> arrow keys
--- map("n", "<A-J>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
--- map("n", "<A-H>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+-- -- Resize window using <Alt-Shift> hjkl keys in terminal mode
+-- map("t", "<A-K>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+-- map("t", "<A-L>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" }) -- Resize window using <ctrl> arrow keys
+-- map("t", "<A-J>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+-- map("t", "<A-H>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 
-map("n", "<C-Up>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
-map("n", "<C-Right>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
-map("n", "<C-Down>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
-map("n", "<C-Left>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
-map("n", "<A-k>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
-map("n", "<A-l>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
-map("n", "<A-j>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
-map("n", "<A-h>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
+-- map({ "n", "t" }, "<C-Up>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
+-- map({ "n", "t" }, "<C-Right>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
+-- map({ "n", "t" }, "<C-Down>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
+-- map({ "n", "t" }, "<C-Left>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
+-- map({ "n", "t" }, "<A-k>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
+-- map({ "n", "t" }, "<A-l>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
+-- map({ "n", "t" }, "<A-j>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
+-- map({ "n", "t" }, "<A-h>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
+map({ "n", "t" }, "<A-Up>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
+map({ "n", "t" }, "<A-Right>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
+map({ "n", "t" }, "<A-Down>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
+map({ "n", "t" }, "<A-Left>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
 
 -- remap <leader>[y|Y] to copy to system clipboard
 map({ "n", "v" }, "<leader>y", [["+y]], { desc = '"+y Copy to system clipboard' })
