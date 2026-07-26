@@ -69,7 +69,7 @@ return {
       {
         "<leader>Vr",
         "<cmd>lua require('venv-selector').restart_lsp_servers()<cr>",
-        desc = "Restart python lsp clients",
+        desc = "Restart python lsp clients (current buffer)",
       },
       {
         "<leader>VR",
@@ -89,6 +89,26 @@ return {
     event = "VeryLazy",
     opts = function(_, opts)
       table.insert(opts.sections.lualine_x, { "venv-selector", icon = "\u{1f332}", color = { fg = "#7fb55e" } })
+    end,
+  },
+  {
+    -- lazy.nvim's own `keys` table above only carries the actual keymap
+    -- (desc included, since that's a real vim.keymap.set field); an `icon`
+    -- field there is silently dropped since Neovim's keymap API doesn't
+    -- store it. which-key only picks up icons from its own spec, so
+    -- register icon-only entries here -- which-key merges them onto the
+    -- real keymaps by lhs.
+    "folke/which-key.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.spec = opts.spec or {}
+      vim.list_extend(opts.spec, {
+        { "<leader>Vs", icon = "\u{E606}" },
+        { "<leader>Vd", icon = "\u{F011}" },
+        { "<leader>Vr", icon = "\u{F01E}" },
+        { "<leader>VR", icon = "\u{F021}" },
+      })
+      return opts
     end,
   },
 }
