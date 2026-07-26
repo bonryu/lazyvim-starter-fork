@@ -31,7 +31,15 @@ return {
         vim.keymap.set("t", "<A-l>", [[<C-\><C-n><C-W>l]], opts2)
       end
 
-      vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+      vim.api.nvim_create_autocmd("TermOpen", {
+        pattern = "term://*",
+        desc = "Set toggleterm keymaps, except in the claudecode.nvim panel (it handles its own <esc>)",
+        callback = function(args)
+          if not vim.api.nvim_buf_get_name(args.buf):match("claude") then
+            set_terminal_keymaps()
+          end
+        end,
+      })
 
       local Terminal = require("toggleterm.terminal").Terminal
       local floatterm = Terminal:new({

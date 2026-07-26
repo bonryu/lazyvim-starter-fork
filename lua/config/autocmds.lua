@@ -47,3 +47,13 @@ vim.api.nvim_create_autocmd("FileType", {
     ]])
   end,
 })
+
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = augroup("claudecode_disable_suspend"),
+  desc = "Disable <C-z> suspend inside the claudecode.nvim terminal panel",
+  callback = function(args)
+    if vim.api.nvim_buf_get_name(args.buf):match("claude") then
+      vim.keymap.set("t", "<C-z>", "<Nop>", { buffer = args.buf, desc = "Disable suspend in Claude terminal" })
+    end
+  end,
+})

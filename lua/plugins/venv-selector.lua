@@ -1,3 +1,16 @@
+-- restart_lsp_servers() only acts on vim.api.nvim_get_current_buf(),
+-- so loop every loaded python buffer through nvim_buf_call to make
+-- each one "current" for that lookup without switching windows.
+local function restart_all_python_buffers()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].filetype == "python" then
+      vim.api.nvim_buf_call(buf, function()
+        require("venv-selector").restart_lsp_servers()
+      end)
+    end
+  end
+end
+
 return {
   {
     -- dir = "/home/bonryu/Projects/nvim/venv-selector.nvim/",
@@ -7,58 +20,62 @@ return {
     dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim", "mfussenegger/nvim-dap-python" },
     ft = false,
     opts = {
-      parents = 0,
-      anaconda_base_path = "/home/bonryu/miniconda3",
-      anaconda_envs_path = "/home/bonryu/miniconda3/envs",
-      pyenv_path = "/home/bonryu/.pyenv/versions",
-      stay_on_this_version = true,
-
-      -- enable_debug_output = true,
+      -- Built-in Linux default searches already cover this machine's env locations
+      -- (pyenv -> ~/.pyenv/versions, miniconda_envs -> ~/miniconda3/envs,
+      -- miniconda_base -> ~/miniconda3/bin), so no custom search paths needed here.
+      options = {
+        cached_venv_automatic_activation = false,
+        -- venv-selector defaults this to true, which does `vim.notify =
+        -- require("notify")` the first time it lazy-loads (on first
+        -- <leader>Vs). Since noice.nvim (LazyVim's ui.lua) already owns
+        -- vim.notify by then, that permanently clobbers noice's wrapper for
+        -- the rest of the session, breaking its popup rendering for other
+        -- plugins' messages (e.g. fzf-lua's "No definitions found").
+        override_notify = false,
+        -- debug = true,
+      },
     },
     -- autocmd put into config/autocmds.lua to automatically activate cached envrionment
     keys = {
       -- Keymap to open VenvSelector to pick a venv.
       { "<leader>Vs", "<cmd>VenvSelect<cr>", desc = "Select virtual env" },
-      -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
-      { "<leader>Vc", "<cmd>lua require('venv-selector').deactivate()<cr>", desc = "Select chached env" },
-      -- {
-      --   "<leader>Vr",
-      --   "<cmd>lua require('venv-selector').deactivate_venv()<cr><cmd>VenvSelectCached<cr>",
-      --   desc = "Re-activate cached env",
-      -- },
+      -- Keymap to deactivate the currently active venv (stops plugin-owned LSP clients, restores baseline config, clears PATH/env vars).
+      {
+        "<leader>Vd",
+        function()
+          -- venv-selector's own deactivate() clears path.current_python_path
+          -- (venv.clear_active_state) *before* calling path.remove_current(),
+          -- which only acts `if M.current_python_path then` -- so it's
+          -- already nil and remove_current() silently no-ops, leaving the
+          -- venv's bin dir in $PATH forever. Capture the path ourselves
+          -- first and strip it after deactivate() returns.
+          --
+          -- deactivate()'s own LSP restart (hooks.restore_original_python_lsps_for_buf)
+          -- is async (lsp_gate polls every 200ms before actually starting the
+          -- replacement client), so this runs well before that timer fires -
+          -- no need to force another restart ourselves here.
+          local python_path = require("venv-selector").python()
+          require("venv-selector").deactivate()
+          if python_path then
+            local path = require("venv-selector.path")
+            local base = path.get_base(python_path)
+            if base then
+              path.remove(base)
+            end
+          end
+        end,
+        desc = "Deactivate venv",
+      },
       {
         "<leader>Vr",
         "<cmd>lua require('venv-selector').restart_lsp_servers()<cr>",
         desc = "Restart python lsp clients",
       },
-      -- {
-      --   "<leader>Vr",
-      --   function()
-      --     -- 1. Save the file if there are unsaved changes so the reload doesn't complain
-      --     if vim.bo.modified then
-      --       vim.cmd("write")
-      --     end
-      --
-      --     -- 2. Fetch active LSP clients safely (handles both Neovim 0.9 and 0.10+)
-      --     local get_clients = vim.lsp.get_clients or vim.lsp.get_active_clients
-      --     local clients = get_clients({ bufnr = 0 })
-      --
-      --     -- 3. Find your Python language server and shut it down cleanly
-      --     for _, client in ipairs(clients) do
-      --       if client.name == "pyright" or client.name == "pylsp" or client.name == "basedpyright" then
-      --         vim.lsp.stop_client(client.id, true)
-      --       end
-      --     end
-      --
-      --     -- 4. Wait a fraction of a second for the shutdown, then reload the buffer in-place
-      --     -- `:edit` triggers Neovim to resurrect the LSP from scratch, just like reopening the file!
-      --     vim.defer_fn(function()
-      --       vim.cmd("edit")
-      --       print("Python LSP reloaded & packages indexed!")
-      --     end, 200)
-      --   end,
-      --   desc = "Re-index packages (Safe Reload)",
-      -- },
+      {
+        "<leader>VR",
+        restart_all_python_buffers,
+        desc = "Restart python lsp clients (all open buffers)",
+      },
     },
 
     config = function(_, opts)

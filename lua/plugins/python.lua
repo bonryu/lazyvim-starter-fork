@@ -25,10 +25,24 @@ return {
         pylsp = {
           cmd = { vim.g.python_lsp_bin },
           filetypes = { "python" },
+          -- basedpyright is the type-informed server for navigation; without
+          -- this, telescope's `gd` shows two locations for the same symbol
+          -- (pylsp/jedi resolves the venv via the pyenv symlink, basedpyright
+          -- via the realpath). Keep pylsp for rope refactoring/completion only.
+          on_attach = function(client)
+            client.server_capabilities.definitionProvider = false
+          end,
           settings = {
             pylsp = {
               plugins = {
                 pyflakes = { enabled = false },
+                -- basedpyright already answers textDocument/documentSymbol;
+                -- leaving jedi_symbols on here made trouble.nvim's lualine
+                -- breadcrumb show every symbol twice (once per LSP client).
+                jedi_symbols = { enabled = false },
+                pycodestyle = {
+                  maxLineLength = 100,
+                },
                 -- Enable rope for refactoring (extracting, etc)
                 rope_autoimport = { enabled = true },
                 rope_completion = { enabled = true },
@@ -43,6 +57,25 @@ return {
       },
     },
   },
+  -- Keep dap "step over" from diving into neotest-python's own pytest
+  -- hookwrapper (neotest_python/pytest.py, `outcome = yield`). debugpy's
+  -- justMyCode only auto-excludes stdlib/site-packages, and this plugin
+  -- lives under nvimLazy/lazy/, so it needs an explicit rule.
+  {
+    "nvim-neotest/neotest",
+    opts = {
+      adapters = {
+        ["neotest-python"] = {
+          dap = {
+            rules = {
+              { path = "**/neotest_python/**", include = false },
+            },
+          },
+        },
+      },
+    },
+  },
+
   -- {
   --   "nvimtools/none-ls.nvim",
   --   opts = function(_, opts)

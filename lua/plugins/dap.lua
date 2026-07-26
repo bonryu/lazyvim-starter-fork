@@ -34,19 +34,26 @@ return {
       --   desc = "Toggle Breakpoint",
       -- },
       {
+        "<leader>dc",
+        function()
+          require("dap").continue()
+        end,
+        desc = "Continue <F5>",
+      },
+      {
         "<F5>", -- "<leader>dc",
         function()
           require("dap").continue()
         end,
-        desc = "Continue",
+        desc = "Continue <F5>",
       },
-      {
-        "<leader>da",
-        function()
-          require("dap").continue({ before = get_args })
-        end,
-        desc = "Run with Args",
-      },
+      -- {
+      --   "<leader>da",
+      --   function()
+      --     require("dap").continue({ before = get_args })
+      --   end,
+      --   desc = "Run with Args",
+      -- },
       {
         "<leader>dC",
         function()
@@ -90,11 +97,11 @@ return {
         desc = "Step Out <Shift-F11>",
       },
       {
-        "<S-F11>",
+        "<F23>",
         function()
           require("dap").step_out()
         end,
-        desc = "Step Out",
+        desc = "Step Out <Shift-F11>",
       },
       {
         "<leader>dO",
@@ -125,11 +132,11 @@ return {
         desc = "dap Terminate <Shift-F5>",
       },
       {
-        "<S-F5>", -- "<leader>dt",
+        "<F17>", -- "<leader>dt",
         function()
           require("dap").terminate()
         end,
-        desc = "dap Terminate",
+        desc = "dap Terminate <Shift-F5>",
       },
       {
         "<leader>dR",
