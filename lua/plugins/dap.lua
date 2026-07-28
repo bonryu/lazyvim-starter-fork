@@ -73,7 +73,7 @@ return {
         function()
           require("dap").step_into()
         end,
-        desc = "Step Into",
+        desc = "Step Into <F11>",
       },
       {
         "<leader>dj",

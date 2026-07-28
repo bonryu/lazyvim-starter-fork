@@ -88,7 +88,25 @@ return {
     optional = true,
     event = "VeryLazy",
     opts = function(_, opts)
-      table.insert(opts.sections.lualine_x, { "venv-selector", icon = "\u{1f332}", color = { fg = "#7fb55e" } })
+      -- venv-selector's own "venv-selector" lualine component
+      -- (venv-selector/statusline/lualine.lua) hardcodes
+      -- `if vim.bo.filetype ~= "python" then return "" end`, so it only shows
+      -- while focused on a python buffer. The active venv is actually global
+      -- session state (path.current_venv_path isn't buffer-scoped), so build
+      -- our own component without that gate -- it stays visible everywhere,
+      -- which also makes it obvious what a freshly opened toggleterm panel
+      -- will inherit.
+      table.insert(opts.sections.lualine_x, {
+        function()
+          local venv_path = require("venv-selector").venv()
+          if not venv_path or venv_path == "" then
+            return ""
+          end
+          return "\u{F023A} " .. vim.fn.fnamemodify(venv_path, ":t") .. " "
+        end,
+        icon = "\u{1f332}",
+        color = { fg = "#7fb55e" },
+      })
     end,
   },
   {

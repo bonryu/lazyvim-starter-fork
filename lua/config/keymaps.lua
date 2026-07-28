@@ -123,6 +123,13 @@ map(
 -- )
 
 -- buffers
+map("n", "<leader>bv", function()
+  -- Diff the current (possibly unsaved) buffer against its on-disk version,
+  -- without writing anything: read the saved file into a scratch buffer and
+  -- turn on diff mode against the current one.
+  vim.cmd("vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis")
+end, { desc = "Diff buffer vs saved file" })
+
 if Util.has("bufferline.nvim") then
   map("n", "<C-S-PageDown>", "<cmd>BufferLineMoveNext<cr>", { desc = "Move buffer right" })
   map("n", "<C-S-PageUp>", "<cmd>BufferLineMovePrev<cr>", { desc = "Move buffer left" })
