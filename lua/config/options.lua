@@ -42,6 +42,16 @@ vim.g.lazyvim_python_ruff = "ruff"
 
 -- vim.api.nvim_set_hl(0, "@customline", { bg = "#c53b53" })
 vim.api.nvim_set_hl(0, "@customline", { bg = "#4fd6be" })
+
+-- snacks.nvim's own defaults (snacks/win.lua) link SnacksWinBar -> Title and
+-- SnacksWinBarNC -> SnacksWinBar, so every snacks-managed window (including
+-- the claudecode.nvim terminal panel) renders identically whether focused or
+-- not, regardless of winbar content. Since those are `default`-links (only
+-- applied if not already set), defining them here first -- before snacks.nvim
+-- lazy-loads and tries to set its own defaults -- makes snacks windows match
+-- normal buffers' WinBar/WinBarNC focus highlighting instead.
+vim.api.nvim_set_hl(0, "SnacksWinBar", { link = "WinBar" })
+vim.api.nvim_set_hl(0, "SnacksWinBarNC", { link = "WinBarNC" })
 -- custom python provider
 local virtual_env = vim.fn.expand("$HOME") .. "/.pyenv/versions/nvim31013"
 local python = virtual_env .. "/bin/python3"
