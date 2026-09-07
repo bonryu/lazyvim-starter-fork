@@ -21,7 +21,67 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      -- basedpyright sends some diagnostics (e.g. reportUnknownVariableType)
+      -- as a two-line message: a generic summary line, then a more specific
+      -- detail line with the inferred type and rule name. vim.diagnostic's
+      -- virtual_text renderer doesn't split on "\n" (it just replaces it with
+      -- spaces, jamming both lines onto one inline line), so this needs its
+      -- own format hook in addition to float's - they're two separate config
+      -- paths in vim.diagnostic, not one shared setting.
+      diagnostics = (function()
+        local function last_line(diagnostic)
+          local lines = vim.split(diagnostic.message, "\n")
+          return lines[#lines]
+        end
+        return {
+          float = { format = last_line },
+          virtual_text = { format = last_line },
+        }
+      end)(),
       servers = {
+        ["*"] = {
+          keys = {
+            {
+              "<leader>ch",
+              function()
+                -- Insert the inlay hint under the cursor as real source
+                -- text. This mutates the buffer, so it belongs in the
+                -- "<leader>c" (Code) group alongside ca/cr/cf, not the
+                -- "gr" (goto) group nvim core uses for grr/gri/grt.
+                --
+                -- basedpyright embeds textEdits directly in the initial
+                -- textDocument/inlayHint response and its
+                -- inlayHintProvider capability is just `true` (no
+                -- resolveProvider) - calling inlayHint/resolve on it
+                -- errors with "Unhandled method". Other servers (e.g.
+                -- rust-analyzer) resolve lazily instead, so only fall
+                -- back to inlayHint/resolve when the server actually
+                -- advertises support for it.
+                local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
+                for _, hint in ipairs(vim.lsp.inlay_hint.get({ bufnr = 0 })) do
+                  if hint.inlay_hint.position.line == lnum then
+                    local client = vim.lsp.get_client_by_id(hint.client_id)
+                    local edits = hint.inlay_hint.textEdits
+                    if not edits and client then
+                      local caps = client.server_capabilities.inlayHintProvider
+                      if type(caps) == "table" and caps.resolveProvider then
+                        local resp = client:request_sync("inlayHint/resolve", hint.inlay_hint, 1000, hint.bufnr)
+                        edits = resp and resp.result and resp.result.textEdits
+                      end
+                    end
+                    if edits and client then
+                      vim.lsp.util.apply_text_edits(edits, hint.bufnr, client.offset_encoding)
+                      return
+                    end
+                  end
+                end
+                vim.notify("No resolvable inlay hint on this line", vim.log.levels.WARN)
+              end,
+              has = "inlayHint",
+              desc = "Insert inlay hint under cursor as text",
+            },
+          },
+        },
         pylsp = {
           cmd = { vim.g.python_lsp_bin },
           filetypes = { "python" },
