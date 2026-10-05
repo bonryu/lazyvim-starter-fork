@@ -40,35 +40,36 @@ vim.keymap.set("n", "<C-Down>", "<Nop>")
 vim.keymap.set("n", "<C-Up>", "<Nop>")
 vim.keymap.set("n", "<C-Right>", "<Nop>")
 
--- Move Lines
--- map("n", "<C-S-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
--- map("n", "<C-S-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
--- map("i", "<C-S-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
--- map("i", "<C-S-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
--- map("v", "<C-S-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
--- map("v", "<C-S-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+-- Move Lines: Ctrl+Shift+j/k, since Alt+j/k resize (LazyVim's default for these)
+map("n", "<C-S-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+map("n", "<C-S-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+map("i", "<C-S-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+map("i", "<C-S-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+map("v", "<C-S-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+map("v", "<C-S-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
--- Move to window using the <Ctrl> hjkl keys
+-- Move to window using the <Ctrl> hjkl keys, in every mode including terminal
+-- (so Claude Code and shells don't get Ctrl+hjkl: Claude newline is Shift+Enter)
 map(
-  { "n", "v", "i" },
+  { "n", "v", "i", "t" },
   "<C-h>",
   [[<cmd>lua require("tmux").move_left()<cr>]],
   { desc = "Go to left window", remap = true }
 )
 map(
-  { "n", "v", "i" },
+  { "n", "v", "i", "t" },
   "<C-j>",
   [[<cmd>lua require("tmux").move_bottom()<cr>]],
   { desc = "Go to lower window", remap = true }
 )
 map(
-  { "n", "v", "i" },
+  { "n", "v", "i", "t" },
   "<C-k>",
   [[<cmd>lua require("tmux").move_top()<cr>]],
   { desc = "Go to upper window", remap = true }
 )
 map(
-  { "n", "v", "i" },
+  { "n", "v", "i", "t" },
   "<C-l>",
   [[<cmd>lua require("tmux").move_right()<cr>]],
   { desc = "Go to right window", remap = true }
@@ -88,10 +89,18 @@ map(
 -- map({ "n", "t" }, "<A-l>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
 -- map({ "n", "t" }, "<A-j>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
 -- map({ "n", "t" }, "<A-h>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
-map({ "n", "t" }, "<A-Up>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
-map({ "n", "t" }, "<A-Right>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
-map({ "n", "t" }, "<A-Down>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
-map({ "n", "t" }, "<A-Left>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
+-- Resize with Alt+arrows / Alt+hjkl in every mode including terminal, matching
+-- tmux (.tmux.conf). Overrides LazyVim's Alt+j/k move-line (now Ctrl+Shift+j/k
+-- above) and costs Claude Code its default Alt+j (toggle terminal panel).
+local resize_modes = { "n", "i", "v", "t" }
+map(resize_modes, "<A-Up>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
+map(resize_modes, "<A-Right>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
+map(resize_modes, "<A-Down>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
+map(resize_modes, "<A-Left>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
+map(resize_modes, "<A-k>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
+map(resize_modes, "<A-l>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
+map(resize_modes, "<A-j>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
+map(resize_modes, "<A-h>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
 
 -- remap <leader>[y|Y] to copy to system clipboard
 map({ "n", "v" }, "<leader>y", [["+y]], { desc = '"+y Copy to system clipboard' })
