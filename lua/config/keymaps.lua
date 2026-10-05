@@ -18,6 +18,14 @@ local function map(mode, lhs, rhs, opts)
   end
 end
 
+-- keymaps to test shift enter is working when opening nvim via kitty->tmux->nvim
+vim.keymap.set("n", "<S-CR>", function()
+  vim.notify("GOT SHIFT-ENTER")
+end)
+vim.keymap.set("n", "<CR>", function()
+  vim.notify("GOT PLAIN ENTER")
+end)
+
 -- better indenting
 vim.keymap.set("v", "<", "<Nop>")
 vim.keymap.set("v", ">", "<Nop>")
@@ -75,20 +83,6 @@ map(
   { desc = "Go to right window", remap = true }
 )
 
--- -- Resize window using <Alt-Shift> hjkl keys in terminal mode
--- map("t", "<A-K>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
--- map("t", "<A-L>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" }) -- Resize window using <ctrl> arrow keys
--- map("t", "<A-J>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
--- map("t", "<A-H>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-
--- map({ "n", "t" }, "<C-Up>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
--- map({ "n", "t" }, "<C-Right>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
--- map({ "n", "t" }, "<C-Down>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
--- map({ "n", "t" }, "<C-Left>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
--- map({ "n", "t" }, "<A-k>", [[<cmd>lua require("tmux").resize_top()<cr>]], { desc = "Increase window height" })
--- map({ "n", "t" }, "<A-l>", [[<cmd>lua require("tmux").resize_right()<cr>]], { desc = "Increase window width" })
--- map({ "n", "t" }, "<A-j>", [[<cmd>lua require("tmux").resize_bottom()<cr>]], { desc = "Decrease window height" })
--- map({ "n", "t" }, "<A-h>", [[<cmd>lua require("tmux").resize_left()<cr>]], { desc = "Decrease window width" })
 -- Resize with Alt+arrows / Alt+hjkl in every mode including terminal, matching
 -- tmux (.tmux.conf). Overrides LazyVim's Alt+j/k move-line (now Ctrl+Shift+j/k
 -- above) and costs Claude Code its default Alt+j (toggle terminal panel).
