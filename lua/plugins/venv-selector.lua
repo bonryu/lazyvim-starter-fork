@@ -24,7 +24,7 @@ return {
       -- (pyenv -> ~/.pyenv/versions, miniconda_envs -> ~/miniconda3/envs,
       -- miniconda_base -> ~/miniconda3/bin), so no custom search paths needed here.
       options = {
-        cached_venv_automatic_activation = false,
+        cached_venv_automatic_activation = true,
         -- venv-selector defaults this to true, which does `vim.notify =
         -- require("notify")` the first time it lazy-loads (on first
         -- <leader>Vs). Since noice.nvim (LazyVim's ui.lua) already owns
