@@ -82,7 +82,7 @@ return {
             return ""
           end
           -- Statusline text: a literal % in the title must be escaped.
-          return "│  " .. term.id .. ": " .. title:gsub("%%", "%%%%")
+          return "" .. term.id .. ": " .. title:gsub("%%", "%%%%")
         end,
       })
     end,
