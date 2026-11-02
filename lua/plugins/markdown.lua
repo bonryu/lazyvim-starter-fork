@@ -21,7 +21,8 @@ return {
   },
   {
     url = "https://github.com/bonryu/render-markdown.nvim.git",
-    branch = "feature/slimmertable",
+    branch = "feat/slimmer-table",
+    -- dir = "~/Projects/nvim/render-markdown.nvim",
     opts = {
       -- Table options, set to the plugin's defaults except cell (LazyVim and avante set none of them).
       -- Source: render-markdown.nvim lua/render-markdown/settings.lua, M.pipe_table.default.
@@ -66,7 +67,7 @@ return {
         -- Turned on automatically when the indent module is enabled.
         border_virtual = false, -- true | false
         -- Draw a line between body rows, using the delimiter border characters.
-        row_borders = true, -- true | false
+        full_grid = true, -- true | false
         -- Marker placed in the delimiter row, positioned by column alignment.
         alignment_indicator = "━", -- any single-width string
         -- Highlight group for the header, the delimiter row, and the line above.
