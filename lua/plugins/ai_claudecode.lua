@@ -66,4 +66,25 @@ return {
       { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
     },
   },
+  {
+    -- The Claude buffer is named after /usr/bin/env (see terminal_cmd above), so
+    -- the statusline's path says only "term:/.../bin/env". Follow it with the
+    -- text snacks puts in the terminal's winbar, e.g. "1: * Claude Code". Covers
+    -- every snacks split terminal; floats have no winbar, so they're skipped.
+    "nvim-lualine/lualine.nvim",
+    optional = true,
+    opts = function(_, opts)
+      table.insert(opts.sections.lualine_c, {
+        function()
+          local term = vim.b.snacks_terminal
+          local title = vim.b.term_title
+          if not term or not title or vim.wo.winbar == "" then
+            return ""
+          end
+          -- Statusline text: a literal % in the title must be escaped.
+          return "│  " .. term.id .. ": " .. title:gsub("%%", "%%%%")
+        end,
+      })
+    end,
+  },
 }
