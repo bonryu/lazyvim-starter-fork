@@ -92,6 +92,9 @@ map("t", "<C-q>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
 -- Ctrl+w and the same key the rest of the desktop uses for it. Like Ctrl+w, it
 -- leaves the registers alone.
 map("i", "<C-Del>", [[<C-o>"_dw]], { desc = "Delete word to the right" })
+-- Ctrl+Backspace does what Ctrl+w does, so the habit carries over to browsers,
+-- where Ctrl+w closes the tab.
+map("i", "<C-BS>", "<C-w>", { desc = "Delete word to the left" })
 
 -- Resize with Alt+arrows / Alt+hjkl in every mode including terminal, matching
 -- tmux (.tmux.conf). Overrides LazyVim's Alt+j/k move-line (now Ctrl+Shift+j/k

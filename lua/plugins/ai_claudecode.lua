@@ -33,6 +33,17 @@ return {
               mode = "t",
               desc = "Delete word to the right",
             },
+            -- Ctrl+Backspace as Ctrl+w, which Claude Code's prompt already
+            -- treats as delete word to the left.
+            delete_word_left = {
+              "<C-BS>",
+              function()
+                return "<C-w>"
+              end,
+              expr = true,
+              mode = "t",
+              desc = "Delete word to the left",
+            },
           },
         },
       },
