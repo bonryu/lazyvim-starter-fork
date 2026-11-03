@@ -22,6 +22,17 @@ return {
             -- Claude instead, where Ctrl+_ is undo.
             hide_slash = false,
             hide_underscore = false,
+            -- Claude Code's prompt treats Ctrl+Delete as a plain Delete, but
+            -- deletes the next word on Alt+d (readline's kill-word). Send that.
+            delete_word_right = {
+              "<C-Del>",
+              function()
+                return "<M-d>"
+              end,
+              expr = true,
+              mode = "t",
+              desc = "Delete word to the right",
+            },
           },
         },
       },

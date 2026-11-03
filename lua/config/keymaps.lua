@@ -88,6 +88,11 @@ map(
 -- doesn't interrupt a running Claude Code response.
 map("t", "<C-q>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
 
+-- Ctrl+Delete in insert mode deletes the word to the right, the mirror of
+-- Ctrl+w and the same key the rest of the desktop uses for it. Like Ctrl+w, it
+-- leaves the registers alone.
+map("i", "<C-Del>", [[<C-o>"_dw]], { desc = "Delete word to the right" })
+
 -- Resize with Alt+arrows / Alt+hjkl in every mode including terminal, matching
 -- tmux (.tmux.conf). Overrides LazyVim's Alt+j/k move-line (now Ctrl+Shift+j/k
 -- above) and costs Claude Code its default Alt+j (toggle terminal panel).
