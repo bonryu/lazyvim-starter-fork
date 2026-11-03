@@ -83,6 +83,11 @@ map(
   { desc = "Go to right window", remap = true }
 )
 
+-- Ctrl+q leaves terminal mode in any terminal. Unlike the double-Esc mapping
+-- (plugins/snacks_terminal.lua), it never sends an Esc to the program, so it
+-- doesn't interrupt a running Claude Code response.
+map("t", "<C-q>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+
 -- Resize with Alt+arrows / Alt+hjkl in every mode including terminal, matching
 -- tmux (.tmux.conf). Overrides LazyVim's Alt+j/k move-line (now Ctrl+Shift+j/k
 -- above) and costs Claude Code its default Alt+j (toggle terminal panel).
