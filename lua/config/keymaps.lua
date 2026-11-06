@@ -95,6 +95,9 @@ map("i", "<C-Del>", [[<C-o>"_dw]], { desc = "Delete word to the right" })
 -- Ctrl+Backspace does what Ctrl+w does, so the habit carries over to browsers,
 -- where Ctrl+w closes the tab.
 map("i", "<C-BS>", "<C-w>", { desc = "Delete word to the left" })
+-- Same in terminals: a shell would otherwise get a plain Backspace. The Claude
+-- window has its own buffer-local map (plugins/ai_claudecode.lua).
+map("t", "<C-BS>", "<C-w>", { desc = "Delete word to the left" })
 
 -- Resize with Alt+arrows / Alt+hjkl in every mode including terminal, matching
 -- tmux (.tmux.conf). Overrides LazyVim's Alt+j/k move-line (now Ctrl+Shift+j/k
